@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FeedList from './components/FeedList'
 
 const VideoPlayer = ({ id }) => {
   const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
@@ -21,6 +22,10 @@ class App extends Component {
               <VideoPlayer id='MmOpzbBsr8E' />
             </div>
           </div>
+
+        <div>
+          <FeedList lol={'lol'}></FeedList>
+        </div>
 
       </>
     );

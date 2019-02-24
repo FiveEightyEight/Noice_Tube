@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './FeedList.css';
 
-class FeedEditor extends React.component{
+class FeedEditor extends React.Component{
     constructor(props){
       super(props)
       this.state = {
         currentUser: {
-          name:'default',
+          name:'ramon',
            feed:['music'],
         }
       }
@@ -20,16 +20,23 @@ class FeedEditor extends React.component{
     
    /* APP LOGIC
    1.pull feed from localStorage 
+   */
      getFeed(){
-        user = localStorage.getItem(currentUser) // grab 
-        if(!user){
-            user = this.state.currentUser
-        }
-        this.setState({currentUser:user})
-   }
+         let user;
+           user = localStorage.getItem('currentUser') ||(this.state.currentUser) ;// grab 
+           if (typeof(user) === 'string'){
+           user =  JSON.parse(user)
+           }
+            this.setState({currentUser:user},()=>{
+            localStorage.setItem('currentUser',JSON.stringify(this.state.currentUser))
+    })
+    }
+      
    componentDidMount(){
      this.getFeed()
+     console.log(this.state)
    }
+   /*
    2.when user adds to their feed -> 
    handleFeedAdd(e) 
        newFeed = this.state.feed.concat(e.target.value)
@@ -39,9 +46,17 @@ class FeedEditor extends React.component{
       localstorage.setItem(CurrentUser,this.state.currentUser) 
      })
    }
-  
-   
+
    */
+  render(){
+      return(<>
+      <div className='row offset-6'>
+      <p>{this.state.currentUser.name}</p>
+
+      </div>
+      </>
+      )
+  }
   }
 
   export default FeedEditor;
