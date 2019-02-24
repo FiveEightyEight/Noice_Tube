@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+const VideoPlayer = ({ id }) => {
+  const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
+
+  return (
+    <iframe title='yt-video' type="text/html" width="640" height="360"
+      src={link} frameBorder="0"></iframe>
+  );
+}
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <>
+        <h1>Hello World</h1>
+
+          <div className='row'>
+            <div className='mx-auto align-self-center'>
+              <VideoPlayer id='MmOpzbBsr8E' />
+            </div>
+          </div>
+
+      </>
     );
   }
 }
