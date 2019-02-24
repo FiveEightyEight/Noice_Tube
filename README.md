@@ -9,15 +9,16 @@ ___
 ## **Table of Contents**
 || |
 |--:|:----|
-|1.|[The Ask]()
-|2.|[Brainstorm]()
-|3.|[Build]()
-|4.|[Routes]()
-|5.|[Components]()
-|6.|[Functions]()
-|7.|[Sources]()
-|8.|[Video Query]()
-|9.|[Search Query]()
+|1.|[The Ask](https://github.com/FiveEightyEight/TeamTwo_YTube#1-the-ask)
+|2.|[Brainstorm](https://github.com/FiveEightyEight/TeamTwo_YTube#2-brainstorm)
+|3.|[Build](https://github.com/FiveEightyEight/TeamTwo_YTube#3-build--app-structure)
+|4.|[Routes](https://github.com/FiveEightyEight/TeamTwo_YTube#4-routes)
+|5.|[Components](https://github.com/FiveEightyEight/TeamTwo_YTube#5-components)
+|6.|[Functions](https://github.com/FiveEightyEight/TeamTwo_YTube#6-functions)
+|7.|[Sources](https://github.com/FiveEightyEight/TeamTwo_YTube#7-sources)
+|8.|[Video Query](https://github.com/FiveEightyEight/TeamTwo_YTube#8-video-query-example-json)
+|9.|[Search Query](https://github.com/FiveEightyEight/TeamTwo_YTube#9-search-query-example-json)
+|10.|[GitHub Collaboration](https://github.com/FiveEightyEight/TeamTwo_YTube#10-github-collaboration)
 ___
 ## 1. **The Ask**
 * Single Page App that can only use
@@ -226,3 +227,25 @@ ___
    }
   },
 ```
+
+## 10. **GitHub Collaboration**
+1. **Getting Started**
+    * Fork & Clone Project 
+    * In cloned directory excute *__these__* command: 
+        * > ```npm install```
+        * > ```git remote add main https://github.com/FiveEightyEight/TeamTwo_YTube```
+2. **Building**
+    * **NEVER** work on **master** branch
+        * **_DO_**:  `git checkout -b 'task_branch'`  
+3. **Contributing**: When you've finished working on your branch 
+    * Make sure you've saved and commited all work
+    * `git checkout master`
+    * `git pull main`
+    * `git checkout 'task_branch'`
+    * `git merge master`
+    * Resolve any conflicts
+    * Test App
+    * If App tests out OK:
+        * > `git push -u origin 'task_branch'` 
+    * Pull request your `'task_branch'` to main project repo
+        * Add code reviewers from project collaborators list 
