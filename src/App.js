@@ -4,6 +4,7 @@ import SearchContainer from './containers/SearchContainer'
 
 
 
+
 const VideoPlayer = ({ id }) => {
   const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
 
