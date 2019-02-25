@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import User from './containers/User'
+import { BrowserRouter, Route, Link, Switch} from "react-router-dom";
 const VideoPlayer = ({ id }) => {
   const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
 
@@ -9,19 +10,26 @@ const VideoPlayer = ({ id }) => {
   );
 }
 
+
 class App extends Component {
 
   render() {
     return (
       <>
-        <h1>Hello World</h1>
-
-          <div className='row'>
+       
+        <Switch>
+        <Route path='/' exact={true}>
+        <div className='row'>
             <div className='mx-auto align-self-center'>
               <VideoPlayer id='MmOpzbBsr8E' />
             </div>
           </div>
-
+        </Route>
+        </Switch>
+          
+        <Switch>
+          <Route exact path='/user' ><User /></Route>
+          </Switch>
       </>
     );
   }
