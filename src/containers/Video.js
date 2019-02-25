@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './Video.css';
 
 const VideoPlayer = ({ id }) => {
@@ -14,11 +15,12 @@ const VideoPlayer = ({ id }) => {
 class Video extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             videoID: 'MmOpzbBsr8E',
             videoInfo: {
                 title: '',
-                views: 000,
+                views: 0,
                 description: '',
                 channel: '',
                 // publishedOn: 0000,
@@ -35,46 +37,69 @@ class Video extends Component {
         })
     }
 
-    getVideoDiscription = (id) => {
+    getVideoDescription = (id) => {
         const params = {
             part: 'id,snippet,statistics',
             key: 'AIzaSyBcCsdu9K95VsD2umeUKsC-Dj2F-GFgs08',
             id, // id param
         }
-        return callAPI('https://www.googleapis.com/youtube/v3/videos', params)
+        return this.callAPI('https://www.googleapis.com/youtube/v3/videos', params)
+    }
+
+    updateDescription = (id) => {
+        this.getVideoDescription(this.state.videoID)
+            .then(response => {
+                return response.data
+            })
+            .then(data => {
+                const info = {
+                    title: data.items[0].snippet.title,
+                    description: data.items[0].snippet.description,
+                    views: data.items[0].statistics.viewCount,
+                    channel: data.items[0].snippet.channelTitle,
+                }
+                return info;
+            })
+            .then(info => {
+                return this.setState({
+                    videoInfo: info,
+                });
+            })
     }
 
     componentDidMount() {
-        this,getVideoDiscription(this.state.videoID)
-        .then( response => {
-            return response.data
-        })
-        .then( data => {
-            const info = {
-                title: data.items[0].snippet.title,
-                description: data.items[0].snippet.description,
-                views: data.items[0].statistics.viewCount,
-                channel: data.items[0].snippet.channelTitle,
-            }
-            return info;
-        })
-        .then( info => {
-            this.setState({
-               videoInfo:  info,
-            });
+        const { video_id } = this.props.match.params;
+        this.setState({
+            videoID: video_id,
+        }, _ => {
+            this.updateDescription(this.state.videoID);
         })
     }
 
     render() {
         return (
+            <div className='mt-5 container'>
+                <div className='row'>
 
-            <div>
-                <div className='mx-auto align-self-center'>
-                    <VideoPlayer id='MmOpzbBsr8E' />
+                    <div className='mx-auto align-self-center'>
+                        <VideoPlayer value={'string'} id={this.state.videoID} />
+                    </div>
+                    <div className='mx-auto align-self-center'>
+                        <p>
+                            <span className='h2'>{this.state.videoInfo.title}</span>
+                        </p>
+                        <p>
+                            <span className='h6 text-muted'>{this.state.videoInfo.views} views</span>
+                        </p>
+                        <hr />
+                        <p>
+                            <span className='h6'>{this.state.videoInfo.channel}</span>
+                        </p>
+                        <p>
+                            <span>{this.state.videoInfo.description}</span>
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    {this.state.videoInfo.description}
-                </p>
             </div>
         )
     }
