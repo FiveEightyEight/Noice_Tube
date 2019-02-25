@@ -67,6 +67,25 @@ class Video extends Component {
             })
     }
 
+    numberComma = (string) => {
+        const str = string;
+        let temp = ''
+        const arr = [];
+        for (let i = 0; i < str.length; i ++) {
+            const char = str[str.length - i - 1]
+            temp = char + temp;
+            if (temp.length === 3) {
+                arr.unshift(temp)
+                temp = '';
+            }
+            if (i === str.length - 1 && temp.length > 0){
+                arr.unshift(temp)
+                temp = '';
+            }
+        }
+        return arr.join(',')
+    }
+
     componentDidMount() {
         const { video_id } = this.props.match.params;
         this.setState({
@@ -84,12 +103,12 @@ class Video extends Component {
                     <div className='mx-auto align-self-center'>
                         <VideoPlayer value={'string'} id={this.state.videoID} />
                     </div>
-                    <div className='mx-auto align-self-center'>
+                    <div className='mt-3 mx-auto align-self-center'>
                         <p>
                             <span className='h2'>{this.state.videoInfo.title}</span>
                         </p>
                         <p>
-                            <span className='h6 text-muted'>{this.state.videoInfo.views} views</span>
+                            <span className='h6 text-muted'>{this.numberComma(this.state.videoInfo.views)} views</span>
                         </p>
                         <hr />
                         <p>
