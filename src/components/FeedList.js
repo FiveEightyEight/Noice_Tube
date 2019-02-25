@@ -81,9 +81,9 @@ render(){
             this.state.currentUser.feed.map((e,i)=>{
                 return (
                 <>
-                <div className='feedListItem'>
-                <p style={{'display':'inline','marginRight':'20px'}} key={i}  id={i} >{e}</p>
-                <span onClick={this.handleFeedRemove} className="badge badge-dark">X</span>
+                <div  key={i+1} className='feedListItem'>
+                <p  style={{'display':'inline','marginRight':'75%'}} key={i}  id={i} >{e}</p>
+                <span key={i+2} id={i} onClick={this.handleFeedRemove} className="badge badge-dark">X</span>
                 
                 </div>
                 </>
