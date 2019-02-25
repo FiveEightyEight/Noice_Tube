@@ -3,6 +3,7 @@ import './SearchContainer.css';
 import SearchResults from '../components/SearchResults';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import FeedEditor from '../components/FeedList';
 
 
 const locationHashChanged =() => {
@@ -63,11 +64,12 @@ class SearchContainer extends React.Component {
 render(){
       return <>
         <div className='container-fluid'>
+        <hr></hr>
+            <div className='row'></div>
             <div className='row'>
-                <h1>Search Results </h1>
-            </div>
-            <div className='row'>
-                    <div className="col-2"></div>
+                    <div className="col-2">
+                        <FeedEditor></FeedEditor>
+                    </div>
                     <div className="col-8">
                         {
                             this.state.data === false ? <p>No Results Found</p> : <SearchResults resultsReturned={this.state.dataSet} />
