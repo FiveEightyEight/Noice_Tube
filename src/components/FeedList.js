@@ -74,7 +74,6 @@ render(){
       <div className='row'>
       <div className='col col-6'>
       <input type='text'className='input-group mb-3' onKeyDown={this.handleFeedAdd}></input>
-
       </div>
         <div className='col col-6'>
         {
@@ -90,8 +89,7 @@ render(){
                 )
             })
         }
-
-        </div>
+    </div>
       </div>
 
       </>

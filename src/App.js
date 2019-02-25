@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FeedList from './components/FeedList'
-
+import {Route,Link,Switch} from 'react-router-dom'
 
 class App extends Component {
 
@@ -8,10 +8,10 @@ class App extends Component {
     return (
       <>
         <h1>Hello World</h1>
-
-
         <div>
-          <FeedList lol={'lol'}></FeedList>
+          <Switch>
+        <Route exact path='/feededitor'><FeedList /></Route>
+          </Switch>
         </div>
 
       </>
