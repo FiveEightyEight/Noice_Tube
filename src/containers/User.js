@@ -46,59 +46,73 @@ class User extends React.Component {
         }
     }
 
-checkUser = () =>{
+checkUser = () => {
+    const userName = this.state.inputValue; // storing the string in a variable
     
-    const inputValue = this.state.inputValue
-    console.log('step 1', inputValue)
-    const userList = this.state.userList
-    userList.map((value, i)=>{
-        console.log('step 2a', inputValue)
-        if(value === inputValue){
-            return alert('User already exist');
-        } else 
-        console.log('step 2b', this.state)
-        this.setState({currentUser: {
-            name: `${inputValue}`, 
-            feed: []
-        }})
-    })
+    const list = [...this.state.userList] // made a copy of the userList from the state
+        let newObj = {...this.state}; // made a copy of the object
+        newObj.userList.push(userName); // going inside the copied obj into the userlist and pushing the userName inside
+        newObj.currentUser.name = userName; 
+        newObj.currentUser.feed = []; 
+
+        this.setState(newObj);
+        console.log('new obj', newObj)
+        console.log('fucking new list', list);
+
+        console.log('state list', this.state.userList);
+        console.log('YO STATE:', this.state);
+
+
 }
 
-handleKeyDown = (e) => {
-    if(e.keyCode === 13){
-        const userName = this.state.inputValue;
-        this.checkUser(userName)
-    }
-}
+// handleKeyDown = (e) => {
+    
+//     if(e.keyCode === 13){
+//         const userName = this.state.inputValue;
+//         console.log('username in key downnn', userName)
+//         this.checkUser(userName)
+//     }
+
+//     console.log('this triggered')
+// }
 
 updateInputValue = (e) => {
     this.setState({inputValue: e.target.value})
 
 }
 
-displayUserList = () =>{
-    
+displayUserList = () => {
+    const userList = this.state.userList
+    // console.log('userlist', userList)
+    userList.map((currUser) => {
+        console.log('currUser', currUser)
+        return(
+        <ul class="list-group">
+        <li class="list-group-item">{currUser}</li>
+      </ul> 
+      )
+    })
 }
 
 
     render(){
-        return <>
+        return (<>
         <div className ='conatiner'>
-        <div className ='row'>
-        <div className ='col-6'>
-        <h3>Create a new User</h3>
-        <form className="form-inline">
-          <input className="form-control mr-sm-2" type="search" placeholder="Create User" aria-label="Search" value = {this.state.inputValue} onChange = {this.updateInputValue} onKeyDown={this.handleKeyDown}/>
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit"  onClick={this.checkUser}>Search</button>
-        </form>
+            <div className ='row'>
+                <div className ='col-6'>
+                <h3>Create a new User</h3>
+                <form className="form-inline" onSubmit={this.checkUser}>
+                    <input className="form-control mr-sm-2" type="search" placeholder="Create User" aria-label="Search" value = {this.state.inputValue} onChange = {this.updateInputValue} />
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                </div>
+                <div className ='col-6'>
+                <h3>User List</h3>
+                    {/* {this.displayUserList()} */}
+                </div>
+            </div>
         </div>
-        <div className ='col-6'>
-        <h3>User List</h3>
-        
-        </div>
-        </div>
-        </div>
-      </>
+      </>)
     }
 
 
