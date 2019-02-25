@@ -69,21 +69,15 @@ class Video extends Component {
 
     numberComma = (string) => {
         const str = string;
-        let temp = ''
-        const arr = [];
+        let newString = '';
         for (let i = 0; i < str.length; i ++) {
+            if (i % 3 === 0 && i !== 0) {
+                newString = ',' + newString;    
+            }
             const char = str[str.length - i - 1]
-            temp = char + temp;
-            if (temp.length === 3) {
-                arr.unshift(temp)
-                temp = '';
-            }
-            if (i === str.length - 1 && temp.length > 0){
-                arr.unshift(temp)
-                temp = '';
-            }
+            newString = char + newString;
         }
-        return arr.join(',')
+        return newString;
     }
 
     componentDidMount() {
