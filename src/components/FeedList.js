@@ -73,9 +73,11 @@ render(){
       <>
       <div className='row'>
       <div className='col col-6'>
-      <input type='text'className='input-group mb-3' onKeyDown={this.handleFeedAdd}></input>
+      <h1>Create a new Explore Feed </h1>
+      <input type='text'className='.input-sm' onKeyDown={this.handleFeedAdd}></input>
       </div>
         <div className='col col-6'>
+        <h1>Explore Feed List </h1>
         {
             this.state.currentUser.feed.map((e,i)=>{
                 return (
