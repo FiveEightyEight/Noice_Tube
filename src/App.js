@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import {Route,Switch} from 'react-router-dom'
 import SearchContainer from './containers/SearchContainer'
 
 
 
+=======
+import FeedList from './containers/FeedList'
+import Video from './containers/Video';
+import { Route, Switch } from 'react-router-dom'
+>>>>>>> master
 
-const VideoPlayer = ({ id }) => {
-  const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
-
-  return (
-    <iframe title='yt-video' type="text/html" width="640" height="360"
-      src={link} frameBorder="0"></iframe>
-  );
-}
 
 class App extends Component {
 
@@ -20,6 +18,7 @@ class App extends Component {
     return (
       <>
         <h1>Hello World</h1>
+<<<<<<< HEAD
 
           <div className='row'>
             <div className='mx-auto align-self-center'>
@@ -32,6 +31,14 @@ class App extends Component {
           </Switch>
         </div>
 
+=======
+        <div>
+          <Switch>
+            <Route path='/video/:video_id' exact component={Video} />
+            <Route exact path='/feededitor'><FeedList /></Route>
+          </Switch>
+        </div>
+>>>>>>> master
       </>
     );
   }
