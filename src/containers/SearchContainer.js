@@ -10,6 +10,8 @@ const locationHashChanged =() => {
     if (window.location.hash) {
       window.history.go(window.location.hash)
     }
+
+    /*this.props.history.push('/search/'+q)*/
   }
   
   window.onhashchange = locationHashChanged;
@@ -42,7 +44,7 @@ class SearchContainer extends React.Component {
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
-                  key: 'AIzaSyAo6hXtB20Xe0kUbr8bACLmEmAXdEaQGLk',
+                  key: 'AIzaSyAWuvvtDlRzMO1nkrB5OZEG8-jzCQZzEBw',
                   q: window.location.hash.slice(8) ,
                   pageToken: ''
                 }
