@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-
-const VideoPlayer = ({ id }) => {
-  const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
-
-  return (
-    <iframe title='yt-video' type="text/html" width="640" height="360"
-      src={link} frameBorder="0"></iframe>
-  );
-}
+import FeedList from './containers/FeedList'
+import {Route,Link,Switch} from 'react-router-dom'
 
 class App extends Component {
 
@@ -15,12 +8,11 @@ class App extends Component {
     return (
       <>
         <h1>Hello World</h1>
-
-          <div className='row'>
-            <div className='mx-auto align-self-center'>
-              <VideoPlayer id='MmOpzbBsr8E' />
-            </div>
-          </div>
+        <div>
+          <Switch>
+        <Route exact path='/feededitor'><FeedList /></Route>
+          </Switch>
+        </div>
 
       </>
     );
