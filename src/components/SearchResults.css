@@ -1,0 +1,36 @@
+@font-face{
+    font-family: 'Roboto';
+    font-weight: 400;
+    src: url('https://fonts.googleapis.com/css?family=Roboto')
+}
+
+h3, span, p {
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+}
+
+span, p{
+    color: #606060;
+}
+
+
+h3 {
+    display: block;
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+p{
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.byline {
+    margin-top: 0;
+    padding-top: 0;
+    font-size: .9rem;
+    line-height: 1.8rem;
+
+}
