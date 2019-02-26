@@ -1,6 +1,6 @@
 import React from 'react';
 import './FeedList.css';
-import Feedli from '../components/FeedList'
+import Feedlist from '../components/FeedList'
 
 
 class FeedEditor extends React.Component {
@@ -45,6 +45,9 @@ class FeedEditor extends React.Component {
         handleFeedAdd = (e) => {
             if (e.keyCode === 13) {
                 let newState = this.state;
+                if(newState.currentUser.feed.indexOf(e.target.value) !== -1){
+                    return alert('feed is duplicate! please check your inputs')
+                }
                 newState.currentUser.feed = newState.currentUser.feed.concat(e.target.value)
                 e.target.value = ""
                 this.setState({
@@ -78,7 +81,7 @@ render(){
       <h1>Create a new Explore Feed </h1>
       <input type='text'className='.input-sm' onKeyDown={this.handleFeedAdd}></input>
       </div>
-       <Feedli feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/>
+       <Feedlist feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/>
       </div>
 
       </>

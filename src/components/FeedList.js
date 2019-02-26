@@ -1,7 +1,5 @@
 import React from 'react'
-const FeedLi = (props) =>{
-
-
+const FeedList = (props) =>{
     return (
         <div className='col col-6'>
         <h1>Explore Feed List </h1>
@@ -22,4 +20,4 @@ const FeedLi = (props) =>{
     )
 
 }
-export default FeedLi;
+export default FeedList;
