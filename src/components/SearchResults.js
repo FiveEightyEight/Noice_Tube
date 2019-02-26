@@ -12,7 +12,7 @@ const SearchResults = (props) => {
                         return <>
                             <div className="row" key={i}>
                               <div className="col-5">
-                                <img src={e.snippet.thumbnails.medium.url} alt={e.snippet.title} key={i}/>
+                                <img src={e.snippet.thumbnails.medium.url} alt={e.snippet.title}/>
                                 </div>
                                 <div className="col-7">
                                   <h3>{e.snippet.title}</h3>

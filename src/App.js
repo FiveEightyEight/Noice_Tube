@@ -11,12 +11,6 @@ class App extends Component {
   render() {
     return (
       <>
-        <h1>Hello World</h1>
-          <div className='row'>
-            <div className='mx-auto align-self-center'>
-              <VideoPlayer id='MmOpzbBsr8E' />
-            </div>
-          </div>
           <div>
           <Switch>
             <Route exact path='/search/:search_query'><SearchContainer /></Route>
