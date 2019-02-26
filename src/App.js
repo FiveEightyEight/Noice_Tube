@@ -36,3 +36,22 @@ class App extends Component {
 }
 
 export default App;
+
+
+
+
+
+
+/*
+------------------------------------------------------------------------------RICH
+removeUser = (e) =>{
+    let userList = this.state.userList
+    let removeUser = e.target.id
+    console.log(this.state.currentUser)
+    let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
+     this.setState({userlist: remove},()=>{
+       return
+         console.log('this is the',this.state.userList)
+     })
+}
+*/

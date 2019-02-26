@@ -66,18 +66,31 @@ class User extends React.Component {
         }
         
         const list = [...this.state.userList]; 
-        console.log(newUser, 'is our new User')
-        console.log(list, 'is list');
+        // console.log(newUser, 'is our new User')
+        // console.log(list, 'is list');
         list.push(newUser);
 
         this.setState({
             userList:list,
             currentUser: newUser,
         },()=>{
-            console.log(this.state, 'is new State')
+            // console.log(this.state, 'is new State')
         });
         
 }
+
+
+    removeUser = (e) =>{
+        let userList = this.state.userList
+        let removeUser = parseInt(e.target.id);
+        console.log(this.state.currentUser)
+        let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
+         this.setState({userList: remove},()=>{
+           localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
+         })
+    }
+        
+  
 
 
 updateInputValue = (e) => {
@@ -101,7 +114,7 @@ render(){
                         </div>
                             <div className ='col-6'>
                         <h3>User List</h3>
-                            <div><UserList state ={this.state} /> </div>
+                            <div><UserList state ={this.state} removeUser ={this.removeUser}/> </div>
                         </div>
                     </div>
                 </div>
