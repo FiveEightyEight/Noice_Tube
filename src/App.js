@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import FeedList from './containers/FeedList'
 import Video from './containers/Video';
+import { Route, Switch } from 'react-router-dom'
+
 
 class App extends Component {
 
@@ -8,8 +10,12 @@ class App extends Component {
     return (
       <>
         <h1>Hello World</h1>
-        <Route path='/video/:video_id' exact component={Video} />
-
+        <div>
+          <Switch>
+            <Route path='/video/:video_id' exact component={Video} />
+            <Route exact path='/feededitor'><FeedList /></Route>
+          </Switch>
+        </div>
       </>
     );
   }
