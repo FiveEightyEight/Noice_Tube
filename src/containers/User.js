@@ -38,7 +38,7 @@ class User extends React.Component {
 
         this.state = {
         inputValue: '',
-        userList: [{}],
+        userList: [],
         currentUser: {
         name: "",
         feed: []
@@ -51,40 +51,45 @@ class User extends React.Component {
             console.log('loop',this.state.userList[i])
             if(this.state.userList[i].name === userName){
                 
-                return alert('User already exist')
-            }
+                return true
         }
     }
+}
 
     handleSubmit = () => {
-
-        const userName = this.state.inputValue; // storing the string in a variable
+        if (this.checkUser(this.state.inputValue) === true){
+            return alert('User already exist');
+        }
+        const newUser = {
+            name: this.state.inputValue,
+            feed:['music']
+        }
         
-        const list = [...this.state.userList]; // made a copy of the userList from the state
-        let newObj = {...this.state}; // made a copy of the object
-        newObj.currentUser.name = userName; 
-        newObj.currentUser.feed = ['music']; 
-        newObj.userList.push(this.state.currentUser);
+        const list = [...this.state.userList]; 
+        console.log(newUser, 'is our new User')
+        console.log(list, 'is list');
+        list.push(newUser);
 
-        this.setState(newObj);
-        console.log('new obj', newObj)
-        console.log('fucking new list', list);
-        console.log('state list', this.state.userList);
-        console.log('YO STATE:', this.state);
+        this.setState({
+            userList:list,
+            currentUser: newUser,
+        },()=>{
+            console.log(this.state, 'is new State')
+        });
+        
         
         
 }
 
-handleKeyDown = (e) => {
+// handleKeyDown = (e) => {
     
-    if(e.keyCode === 13){
-        const userName = this.state.inputValue;
-        console.log('username in key downnn', userName)
-        this.checkUser(userName)
-    }
+//     if(e.keyCode === 13){
+//         const userName = this.state.inputValue;
+//         console.log('username in key downnn', userName)
+//         this.checkUser(userName)
+//     }
 
-    console.log('this triggered')
-}
+// }
 
 updateInputValue = (e) => {
     this.setState({inputValue: e.target.value})
@@ -92,14 +97,13 @@ updateInputValue = (e) => {
 }
 
 displayUserList = () => {
-    const userList = this.state.userList
-    // console.log('userlist', userList)
+    const userList = this.state.userList.name
     userList.map((currUser) => {
         console.log('currUser', currUser)
         return(
         <ul class="list-group">
-        <li class="list-group-item">{currUser}</li>
-      </ul> 
+            <li class="list-group-item">{currUser}</li>
+        </ul> 
       )
     })
 }
@@ -118,7 +122,7 @@ displayUserList = () => {
                 </div>
                 <div className ='col-6'>
                 <h3>User List</h3>
-                    {/* {this.displayUserList()} */}
+                    {/* <div>{this.displayUserList}</div> */}
                 </div>
             </div>
         </div>
