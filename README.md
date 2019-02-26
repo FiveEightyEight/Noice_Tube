@@ -240,7 +240,7 @@ ___
 3. **Contributing**: When you've finished working on your branch 
     * Make sure you've saved and commited all work
     * `git checkout master`
-    * `git pull main`
+    * `git pull main master`
     * `git checkout 'task_branch'`
     * `git merge master`
     * Resolve any conflicts
