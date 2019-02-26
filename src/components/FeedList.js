@@ -6,13 +6,13 @@ const FeedList = (props) =>{
     {
     props.feed.feed.map((e,i)=>{
         return (
-        <>
-        <div  key={i+1} className='feedListItem'>
-        <p  style={{'display':'inline','marginRight':'75%'}} key={i}  id={i} >{e}</p>
-        <span key={i+2} id={i} onClick={props.handleFeedRemove} className="badge badge-dark">X</span>
+        <div key={i}>
+        <div   className='feedListItem'>
+        <p  style={{'display':'inline','marginRight':'75%'}}   id={i} >{e}</p>
+        <span  id={i} onClick={props.handleFeedRemove} className="badge badge-dark">X</span>
         
         </div>
-        </>
+        </div>
         )
     })
     }
