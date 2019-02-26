@@ -16,13 +16,10 @@ const locationHashChanged =() => {
   window.onhashchange = locationHashChanged;
 
 const dealWithSpaces = (input) => {
-    console.log('Input', input)
     if (input.includes('%20')){
         const newSearchQuery = input.replace('%20',' ');
-        console.log('New Return', newSearchQuery)
         return newSearchQuery;
     }
-    console.log('Nothing Changed')
     return input;
 }
 class SearchContainer extends React.Component {
@@ -57,13 +54,11 @@ class SearchContainer extends React.Component {
                 }
               })
               .then((response)=>{
-                  console.log("Boo")
                   this.setState({
                       data: true,
                       dataset: this.state.dataSet.push(response) });
               })
               .catch((error)=>{
-                  console.log(error);
                   this.setState({
                       data: false,
                   })
@@ -71,7 +66,6 @@ class SearchContainer extends React.Component {
             }
 
 render(){
-    console.log("A", this.state.dataSet)
       return <>
         <div className='container-fluid'>
         <hr></hr>

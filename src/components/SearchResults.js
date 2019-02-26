@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { withRouter} from 'react-router';
 import './SearchResults.css';
 
@@ -9,10 +9,10 @@ const SearchResults = (props) => {
     return <>
                 {
                     props.resultsReturned[0].data.items.map((e, i) => {
-                        return <>
+                        return <Fragment key={i}>
                             <div className="row" key={i}>
                               <div className="col-5">
-                                <img src={e.snippet.thumbnails.medium.url} alt={e.snippet.title} key={i}/>
+                                <img src={e.snippet.thumbnails.medium.url} alt={e.snippet.title}/>
                                 </div>
                                 <div className="col-7">
                                   <h3>{e.snippet.title}</h3>
@@ -20,7 +20,7 @@ const SearchResults = (props) => {
                                     <p>{e.snippet.description}</p>
                                 </div>
                             </div>
-                        </>
+                        </Fragment>
                         })
                 }
     </>
