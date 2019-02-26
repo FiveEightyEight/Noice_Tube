@@ -31,6 +31,7 @@ class user extends Component{
     */
 
 import React from 'react'
+import UserList from '../components/Userlist'
 
 class User extends React.Component {
     constructor(props){
@@ -49,8 +50,7 @@ class User extends React.Component {
     checkUser = (userName) => {
         for(let i = 0; i < this.state.userList.length; i++){
             console.log('loop',this.state.userList[i])
-            if(this.state.userList[i].name === userName){
-                
+            if(this.state.userList[i].name === userName){  
                 return true
         }
     }
@@ -77,55 +77,34 @@ class User extends React.Component {
             console.log(this.state, 'is new State')
         });
         
-        
-        
 }
 
-// handleKeyDown = (e) => {
-    
-//     if(e.keyCode === 13){
-//         const userName = this.state.inputValue;
-//         console.log('username in key downnn', userName)
-//         this.checkUser(userName)
-//     }
-
-// }
 
 updateInputValue = (e) => {
     this.setState({inputValue: e.target.value})
 
 }
 
-displayUserList = () => {
-    const userList = this.state.userList.name
-    userList.map((currUser) => {
-        console.log('currUser', currUser)
-        return(
-        <ul class="list-group">
-            <li class="list-group-item">{currUser}</li>
-        </ul> 
-      )
-    })
-}
 
 
-    render(){
-        return (<>
-        <div className ='conatiner'>
-            <div className ='row'>
-                <div className ='col-6'>
-                <h3>Create a new User</h3>
-                <form className="form-inline" onSubmit={this.handleSubmit}>
-                    <input className="form-control mr-sm-2" type="search" placeholder="Create User" aria-label="Search" value = {this.state.inputValue} onChange = {this.updateInputValue} />
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+
+render(){
+    return (<>
+                <div className ='conatiner'>
+                    <div className ='row'>
+                        <div className ='col-6'>
+                            <h3>Create a new User</h3>
+                            <form className="form-inline" onSubmit={this.handleSubmit}>
+                            <input className="form-control mr-sm-2" type="search" placeholder="Create User" aria-label="Search" value = {this.state.inputValue} onChange = {this.updateInputValue} />
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </div>
+                            <div className ='col-6'>
+                        <h3>User List</h3>
+                            <div><UserList state ={this.state} /> </div>
+                        </div>
+                    </div>
                 </div>
-                <div className ='col-6'>
-                <h3>User List</h3>
-                    {/* <div>{this.displayUserList}</div> */}
-                </div>
-            </div>
-        </div>
       </>)
     }
 
