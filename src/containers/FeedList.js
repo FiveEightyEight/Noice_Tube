@@ -46,6 +46,7 @@ class FeedEditor extends React.Component {
             if (e.keyCode === 13) {
                 let newState = this.state;
                 newState.currentUser.feed = newState.currentUser.feed.concat(e.target.value)
+                e.target.value = ""
                 this.setState({
                     currentUser: newState.currentUser
                 }, () => {
