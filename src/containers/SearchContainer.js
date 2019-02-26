@@ -3,7 +3,6 @@ import './SearchContainer.css';
 import SearchResults from '../components/SearchResults';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-import FeedEditor from '../components/FeedList';
 
 
 const locationHashChanged =() => {
@@ -16,12 +15,17 @@ const locationHashChanged =() => {
   
   window.onhashchange = locationHashChanged;
 
+const dealWithSpaces = (input) => {
+    if (input.includes('%20')){
+        const newSearchQuery = input.replace('%20',' ');
+        return newSearchQuery;
+    }
+    return input;
+}
 class SearchContainer extends React.Component {
-    _isMounted = false;
         constructor(props) {
             super(props)
             this.props.history.listen((location, action) => {
-                console.log(this.props.history);
               })
             
 
@@ -30,7 +34,7 @@ class SearchContainer extends React.Component {
                 params: this.props.match.params.search_query,
                 data: false, 
                 dataSet: [],
-                show: 10,
+                show: 1,
                 }
             }
 
@@ -40,23 +44,21 @@ class SearchContainer extends React.Component {
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
                   part: 'snippet',
-                  maxResults: 10,
+                  maxResults: 2,
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
-                  key: 'AIzaSyAWuvvtDlRzMO1nkrB5OZEG8-jzCQZzEBw',
-                  q: window.location.hash.slice(8) ,
+                  key: 'AIzaSyAo6hXtB20Xe0kUbr8bACLmEmAXdEaQGLk',
+                  q: dealWithSpaces(window.location.hash.slice(9)),
                   pageToken: ''
                 }
               })
               .then((response)=>{
-                  console.log("Boo")
                   this.setState({
                       data: true,
                       dataset: this.state.dataSet.push(response) });
               })
               .catch((error)=>{
-                  console.log(error);
                   this.setState({
                       data: false,
                   })
@@ -70,7 +72,6 @@ render(){
             <div className='row'></div>
             <div className='row'>
                     <div className="col-2">
-                        <FeedEditor></FeedEditor>
                     </div>
                     <div className="col-8">
                         {
