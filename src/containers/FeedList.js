@@ -81,7 +81,7 @@ render(){
       <h1>Create a new Explore Feed </h1>
       <input type='text'className='.input-sm' onKeyDown={this.handleFeedAdd}></input>
       </div>
-       <Feedlist feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/>
+       <Feedlist key= {'feed'}feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/>
       </div>
 
       </>
