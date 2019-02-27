@@ -58,6 +58,7 @@ class User extends React.Component {
 
     handleSubmit = () => {
         if (this.checkUser(this.state.inputValue) === true){
+            this.setState({inputValue: ''})
             return alert('User already exist');
         }
         const newUser = {
@@ -75,10 +76,10 @@ class User extends React.Component {
             currentUser: newUser,
         },()=>{
             // console.log(this.state, 'is new State')
+            this.setState({inputValue: ''})
         });
         
 }
-
 
     removeUser = (e) =>{
         let userList = this.state.userList
@@ -89,17 +90,11 @@ class User extends React.Component {
            localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
          })
     }
-        
-  
-
 
 updateInputValue = (e) => {
     this.setState({inputValue: e.target.value})
 
 }
-
-
-
 
 render(){
     return (<>
@@ -118,9 +113,8 @@ render(){
                         </div>
                     </div>
                 </div>
-      </>)
+        </>)
     }
-
 
 }
 
