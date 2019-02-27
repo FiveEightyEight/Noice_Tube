@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import User from './containers/User'
 import {Route,Switch} from 'react-router-dom'
 import SearchContainer from './containers/SearchContainer'
 import FeedList from './containers/FeedList'
@@ -13,6 +14,7 @@ class App extends Component {
       <>
           <div>
           <Switch>
+            <Route exact path='/user'><User /></Route>
             <Route exact path='/search/:search_query'><SearchContainer /></Route>
             <Route path='/video/:video_id' exact component={Video} />
             <Route exact path='/feededitor'><FeedList /></Route>
@@ -25,5 +27,5 @@ class App extends Component {
 
 export default App;
 
-//<Route exact path='/feededitor'><FeedEditor /></Route>
+
 
