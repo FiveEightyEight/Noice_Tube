@@ -9,6 +9,10 @@ h3, span, p {
     text-align: left;
 }
 
+h3, img,  p:hover {
+    cursor: pointer;
+}
+
 span, p{
     color: #606060;
 }
