@@ -84,7 +84,7 @@ class User extends React.Component {
     removeUser = (e) =>{
         let userList = this.state.userList
         let removeUser = parseInt(e.target.id);
-        console.log(this.state.currentUser)
+        
         let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
          this.setState({userList: remove},()=>{
            localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
