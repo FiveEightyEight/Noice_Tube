@@ -75,7 +75,8 @@ class User extends React.Component {
             userList:list,
             currentUser: newUser,
         },()=>{
-            // console.log(this.state, 'is new State')
+            localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
+            localStorage.setItem(`userList`, JSON.stringify(this.state.userList))
             this.setState({inputValue: ''})
         });
         
@@ -87,7 +88,7 @@ class User extends React.Component {
         
         let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
          this.setState({userList: remove},()=>{
-           localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
+          
          })
     }
 
