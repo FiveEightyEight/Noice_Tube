@@ -39,8 +39,8 @@ class User extends React.Component {
         const list = [...this.state.userList]; 
         
         list.push(newUser);
-        localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
-        localStorage.setItem(`userList`, JSON.stringify(this.state.userList))
+        localStorage.setItem(`currentUser`, JSON.stringify(newUser))
+        localStorage.setItem(`userList`, JSON.stringify(list))
         this.setState({
             userList:list,
             currentUser: newUser,
@@ -49,8 +49,8 @@ class User extends React.Component {
         
 }
     componentDidMount = () =>{
-        const userListStorage = JSON.parse(localStorage.getItem(`userList`))
-        const currentUserStorage = JSON.parse(localStorage.getItem(`currentUser`))
+        const userListStorage = JSON.parse(localStorage.getItem(`userList`)) || this.state.userList;
+        const currentUserStorage = JSON.parse(localStorage.getItem(`currentUser`)) || this.state.currentUser;
         this.setState({userList: userListStorage, currentUser: currentUserStorage})
 }
 

@@ -1,0 +1,16 @@
+.navContainer{
+    background-color: black;
+    margin-bottom: 20px;
+    color: white;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+.navLink{
+    color: white;
+    
+}
+.navLink:hover{
+    color:green;
+    text-decoration: none;
+}
