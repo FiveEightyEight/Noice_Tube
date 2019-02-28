@@ -60,9 +60,10 @@ class FeedEditor extends React.Component {
         }
 
         handleFeedRemove = e => {
-             console.log(e.target.id)
+            console.log(e.target.id)
+            let id = parseInt(e.target.id);
             let newState = this.state;
-            let newArr = newState.currentUser.feed.slice(0,e.target.id).concat(newState.currentUser.feed.slice(e.target.id+1))
+            let newArr = newState.currentUser.feed.slice(0,id).concat(newState.currentUser.feed.slice(id+1))
             newState.currentUser.feed = newArr
             console.log(newArr)
             // newState.currentUser.feed = newState.currentUser.feed.slice(e.target.id);
