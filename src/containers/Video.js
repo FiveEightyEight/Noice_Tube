@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Video.css';
+import DescriptionText from '../components/descriptionText';
 
 const VideoPlayer = ({ id }) => {
     const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
@@ -25,7 +26,8 @@ class Video extends Component {
                 channel: '',
                 // publishedOn: 0000,
                 // comments: [{}, {}],
-            }
+            },
+            expand: false,
         }
     }
 
@@ -80,6 +82,13 @@ class Video extends Component {
         return newString;
     }
 
+    handleDescription = e => {
+        const toggle = !this.state.expand;
+        this.setState({
+            expand: toggle,
+        })
+    }
+
     componentDidMount() {
         const { video_id } = this.props.match.params;
         this.setState({
@@ -97,20 +106,18 @@ class Video extends Component {
                     <div className='mx-auto align-self-center'>
                         <VideoPlayer value={'string'} id={this.state.videoID} />
                     </div>
-                    <div className='mt-3 mx-auto align-self-center'>
-                        <p>
+                    <div className='mt-3 mx-auto align-self-center row'>
+                        <p className='col-12'>
                             <span className='h2'>{this.state.videoInfo.title}</span>
                         </p>
-                        <p>
+                        <p className='col-12'>
                             <span className='h6 text-muted'>{this.numberComma(this.state.videoInfo.views)} views</span>
                         </p>
                         <hr />
-                        <p>
+                        <p className='col-12'>
                             <span className='h6'>{this.state.videoInfo.channel}</span>
                         </p>
-                        <p>
-                            <span>{this.state.videoInfo.description}</span>
-                        </p>
+                        <DescriptionText description={this.state.videoInfo.description} expand={this.state.expand} handleDescription={this.handleDescription}/>
                     </div>
                 </div>
             </div>

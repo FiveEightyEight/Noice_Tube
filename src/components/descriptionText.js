@@ -4,17 +4,22 @@ import './descriptionText.css';
 const DescriptionText = props => {
     return (
         <>
-            <p>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
+            <div className='col-12'>
+                {(props.expand) ? '': <div className="overflow-hidden" style={{'height':'100px'}}>
+                    <div className="">
+                        {props.description}
+                    </div>
+                </div>}
+                <div className="collapse overflow-auto" id="collapseExample">
+                    <div className="">
+                        {props.description}
+                    </div>
                 </div>
 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Button with data-target
-                </button>
-            </p>
+                <a className="btn bg-white text-muted p-0" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onClick={props.handleDescription}>
+                    Load More...
+                </a>
+            </div>
         </>
     )
 }
