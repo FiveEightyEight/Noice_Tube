@@ -26,6 +26,7 @@ class User extends React.Component {
 }
 
     handleSubmit = () => {
+        if(!this.state.inputValue) return
         if (this.checkUser(this.state.inputValue) === true){
             this.setState({inputValue: ''})
             return alert('User already exist');
@@ -38,17 +39,19 @@ class User extends React.Component {
         const list = [...this.state.userList]; 
         
         list.push(newUser);
-
+        localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
+        localStorage.setItem(`userList`, JSON.stringify(this.state.userList))
         this.setState({
             userList:list,
             currentUser: newUser,
-        },()=>{
-            localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
-            localStorage.setItem(`userList`, JSON.stringify(this.state.userList))
-            console.log(localStorage.getItem(`userList`))
-            this.setState({inputValue: ''})
-        });
+            inputValue: '',
+        })
         
+}
+    componentDidMount = () =>{
+        const userListStorage = JSON.parse(localStorage.getItem(`userList`))
+        const currentUserStorage = JSON.parse(localStorage.getItem(`currentUser`))
+        this.setState({userList: userListStorage, currentUser: currentUserStorage})
 }
 
     removeUser = (e) =>{
@@ -56,9 +59,8 @@ class User extends React.Component {
         let removeUser = parseInt(e.target.id);
         
         let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
-         this.setState({userList: remove},()=>{
-          
-         })
+        localStorage.setItem('userList', JSON.stringify(remove))
+         this.setState({userList: remove})
     }
 
 updateInputValue = (e) => {
