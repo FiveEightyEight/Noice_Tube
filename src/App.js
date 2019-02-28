@@ -4,6 +4,7 @@ import {Route,Switch} from 'react-router-dom'
 import SearchContainer from './containers/SearchContainer'
 import FeedList from './containers/FeedList'
 import Video from './containers/Video';
+import HomeContainer from './containers/HomeContainer';
 
 
 
@@ -14,6 +15,7 @@ class App extends Component {
       <>
           <div>
           <Switch>
+            <Route exact path='/'><HomeContainer/></Route>
             <Route exact path='/user'><User /></Route>
             <Route exact path='/search/:search_query'><SearchContainer /></Route>
             <Route path='/video/:video_id' exact component={Video} />
