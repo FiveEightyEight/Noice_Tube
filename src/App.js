@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import User from './containers/User'
 import {Route,Switch} from 'react-router-dom'
 import SearchContainer from './containers/SearchContainer'
+import Video from './containers/Video'
 import FeedList from './containers/FeedList'
 import NavBar from './components/NavBar'
-import {Route,Link,Switch} from 'react-router-dom'
 
 class App extends Component {
 
