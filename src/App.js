@@ -14,10 +14,10 @@ class App extends Component {
       <NavBar></NavBar>
         <div>
           <Switch>
-            <Route exact path='/user'><User /></Route>
+            <Route exact path='/user'component={User} />
             <Route exact path='/search/:search_query'><SearchContainer /></Route>
             <Route path='/video/:video_id' exact component={Video} />
-            <Route exact path='/feededitor'><FeedList /></Route>
+            <Route exact path='/feededitor' component={FeedList} />
           </Switch>
         </div>
 

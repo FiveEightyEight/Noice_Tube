@@ -9,16 +9,16 @@ const NavBar = props => {
     <nav>
         <div className='row navContainer'>
         <div className='col'>
-        <Link to='/'>Home</Link>
+        <Link  className='navLink' to='/'>Home</Link>
         </div>
         <div className='col'>
-        <Link to='/feededitor'>Feed Editor</Link>
+        <Link  className='navLink'to='/feededitor'>Feed Editor</Link>
         </div>
         <div className='col'>
-        <Link to='/user'>Users</Link>
+        <Link className='navLink' to='/user'>Users</Link>
         </div>
         <div className='col'>
-        <SearchBar  / >
+        <SearchBar / >
         </div>
         
         </div>

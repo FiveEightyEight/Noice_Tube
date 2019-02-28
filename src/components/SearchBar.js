@@ -15,6 +15,7 @@ class SearchBar extends React.Component {
     }
      handleSubmit = e =>{ 
             if(e.keyCode === 13){
+             e.preventDefault();
            const searchInput = e.target.value;
             this.props.history.push(`/search/${searchInput}`);
             }

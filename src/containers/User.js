@@ -74,10 +74,8 @@ class User extends React.Component {
         this.setState({
             userList:list,
             currentUser: newUser,
-        },()=>{
-            // console.log(this.state, 'is new State')
-            this.setState({inputValue: ''})
-        });
+            inputValue: '',
+        })
         
 }
 
