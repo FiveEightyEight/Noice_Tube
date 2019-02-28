@@ -6,7 +6,7 @@ const VVideoCard = props => {
     const { img, title, channel, published } = props; 
     return (
         <div className="card border-0" >
-           <img src={img} className="card-img-top" alt={title}/>
+           <img src={img} className="card-img-top" alt={title} onClick={props.handleVideoOnClick}/>
             <div className="card-body p-1">
                 <h5 className="card-title" onClick={props.handleVideoOnClick}>{title}</h5>
                 <p className='text-left row'>
