@@ -1,34 +1,3 @@
-/*
-4. User 
- Richard
-class user extends Component{
-  
-    state = {
-      userList: [],
-      currentUser: {
-        name: "", 
-        feed: ['', '']
-      }, 
-      
-    }
-    
-    Prevent duplicates
-    1. check userList
-    2. if user exist show popup
-    3. if user does not exist add to userList
-    
-    EventHandler:
-    1. Add a user -> onClick push the new user to the userList
-    2. Onclick -> change color of the  userList clicked on
-    
-    Commponents:
-    1. UserList
-    2. Create a new User // possible for future
-    
-    local storage 
-    1. name and feed stringify to locl storage 
-    
-    */
 
 import React from 'react'
 import UserList from '../components/Userlist'
@@ -67,8 +36,7 @@ class User extends React.Component {
         }
         
         const list = [...this.state.userList]; 
-        // console.log(newUser, 'is our new User')
-        // console.log(list, 'is list');
+        
         list.push(newUser);
 
         this.setState({
@@ -77,6 +45,7 @@ class User extends React.Component {
         },()=>{
             localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
             localStorage.setItem(`userList`, JSON.stringify(this.state.userList))
+            console.log(localStorage.getItem(`userList`))
             this.setState({inputValue: ''})
         });
         
@@ -110,7 +79,7 @@ render(){
                         </div>
                             <div className ='col-6'>
                         <h3>User List</h3>
-                            <div><UserList state ={this.state} removeUser ={this.removeUser}/> </div>
+                            <div><UserList state = {this.state} removeUser ={this.removeUser}/> </div>
                         </div>
                     </div>
                 </div>
