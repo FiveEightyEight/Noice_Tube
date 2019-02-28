@@ -38,13 +38,20 @@ class SearchContainer extends React.Component {
                 }
             }
 
+        handleClick = (e) => {
+           const valueId = e.target.attributes.getNamedItem('data-id').value
+           this.props.history.push(`/video/${valueId}`)
+           /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);*/
+            }
+        
+
         componentDidMount() {   
             axios({
                 method: 'get',
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
                   part: 'snippet',
-                  maxResults: 2,
+                  maxResults: this.state.show,
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
@@ -75,7 +82,7 @@ render(){
                     </div>
                     <div className="col-8">
                         {
-                            this.state.data === false ? <p>No Results Found</p> : <SearchResults resultsReturned={this.state.dataSet} />
+                            this.state.data === false ? <p>No Results Found</p> : <SearchResults resultsReturned={this.state.dataSet} click={this.handleClick} />
                         } 
                     </div>
                     <div className="col-2"></div>
