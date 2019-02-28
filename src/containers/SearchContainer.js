@@ -22,6 +22,7 @@ const dealWithSpaces = (input) => {
     }
     return input;
 }
+
 class SearchContainer extends React.Component {
         constructor(props) {
             super(props)
