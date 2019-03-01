@@ -34,24 +34,26 @@ const multiSearch = (array, count = 10) => {
 const getPromiseAllData = (arr) => {
     const temp = [];
     for (let i = 0; i < arr.length; i++) {
-        temp.push(arr[i].data)
+        temp.push({query: arr[i].config.params.q, data: arr[i].data})
     }
     return temp;
 };
 
 const buildSearchResult = (arr, simple = true) => {
     const temp = [];
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         const currentSearch = arr[i];
         temp.push(buildSearchResultObject(currentSearch, simple))
     }
     return temp;
 }
 
-const buildSearchResultObject = (data, simple = true) => {
+const buildSearchResultObject = (dataObj, simple = true) => {
     // requires response.data
+    const { data } = dataObj;
     const obj = {}
     const arr = [];
+    obj['query'] = dataObj.query;
     obj['previousPageToken'] = '';
     obj['nextPageToken'] = data.nextPageToken;
     for (let i = 0; i < data.items.length; i++) {
@@ -60,6 +62,50 @@ const buildSearchResultObject = (data, simple = true) => {
     }
     obj['items'] = arr;
     return obj;
+};
+const buildFeedVideos = (feed = ['music']) => {
+    const feedVideos = {};
+    for(let i = 0; i < feed.length; i ++) {
+        feedVideos[feed[i]] = false;
+    }
+    return feedVideos;
+}
+
+const populateFeedVideos = (feedVideos, feed = ['music'], count = 10) => {
+    const newFeedVideos = {...feedVideos}
+    return exploreFeed(feed, count)
+    .then(data => {
+        for(let i = 0; i < data.length; i ++) {
+            const current = data[i];
+            newFeedVideos[current.query] = current;
+        }
+        return newFeedVideos;
+    })
+    .catch(err => {
+        return err;
+    })
+}
+
+
+const exploreLoadMore = (queryObject) => {
+    const newQueryObj = {...queryObject}
+    return search(queryObject.query, 4, queryObject.nextPageToken)
+    .then(response => {
+        return response.data
+    })
+    .then(data => {
+        for (let i = 0; i < data.items.length; i++) {
+            const currentVideo = data.items[i]
+            newQueryObj.items.push(parseVideo(currentVideo));
+        }
+        newQueryObj.previousPageToken = queryObject.nextPageToken;
+        newQueryObj.nextPageToken = data.nextPageToken;
+        return newQueryObj
+    })
+    .catch(err => {
+        return err;
+    })
+    
 };
 
 const parseVideo = (resultObj, simple = true) => {
@@ -84,6 +130,19 @@ const parseVideo = (resultObj, simple = true) => {
     return parsed;
 };
 
+const exploreFeed = (arr, count = 10) => {
+    return multiSearch(arr, count)
+        .then(resArr => {
+            return getPromiseAllData(resArr);
+        })
+        .then(data => {
+            return buildSearchResult(data)
+        })
+        .catch(err => {
+            return err;
+        })
+}
+
 
 const formatPublish = (publishedAt) => {
     // publishedAt needs to be a string
@@ -101,5 +160,9 @@ export {
     getPromiseAllData,
     buildSearchResult,
     buildSearchResultObject,
+    buildFeedVideos,
+    populateFeedVideos,
+    exploreFeed,
+    exploreLoadMore,
     parseVideo
 }
