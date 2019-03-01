@@ -63,9 +63,9 @@ class HomeContainer extends React.Component {
     
     handleClick = (e) => {
       const location = this.props.location.pathname
-      const valueId = e.target.attributes.getNamedItem('data-id').value
+      // const valueId = e.target.attributes.getNamedItem('data-id').value
       console.log('part 1 ',location)
-      console.log(valueId)
+      // console.log(valueId)
       // location.push(`/video/${valueId}`)
       console.log('part 2',location)
       // const valueId = e.target.attributes.getNamedItem('data-id').value
