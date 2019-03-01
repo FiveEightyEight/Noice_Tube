@@ -157,7 +157,7 @@ const formatPublish = (publishedAt) => {
     return moment(published).fromNow()
 }
 
-numberComma = (string) => {
+const numberComma = (string) => {
     const str = string;
     let newString = '';
     for (let i = 0; i < str.length; i ++) {
@@ -173,6 +173,7 @@ numberComma = (string) => {
 export {
     capitalize,
     formatPublish,
+    numberComma,
     search,
     multiSearch,
     getPromiseAllData,
