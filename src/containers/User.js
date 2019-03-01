@@ -68,13 +68,10 @@ updateInputValue = (e) => {
 
 }
 handleUserClick = e => {
-    console.log('user clicked')
-    console.log(e.target.id, 'is ID')
+    
     let index = parseInt(e.target.id)
     localStorage.setItem('currentUser',JSON.stringify(this.state.userList[index]))
-    this.setState({currentUser:this.state.userList[index]},()=>{
-        console.log(this.state.currentUser, 'new current user')
-    })
+    this.setState({currentUser:this.state.userList[index]})
 }
 
 render(){
