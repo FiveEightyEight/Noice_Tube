@@ -20,28 +20,45 @@ const search = (query, count = 10, page = '') => {
     });
 };
 
-const multiSearch = (array) => {
+const multiSearch = (array, count = 10) => {
     if (array.length <= 0) throw new Error('multiSearch requires at least one query string');
     const promiseAll = [];
     for (let i = 0; i < array.length; i++) {
         const query = array[i];
         if (typeof query !== 'string') throw new Error(`multiSearch requires strings data\nIndex Error: ${i}. Query: `, query);
-        promiseAll.push(search(query));
+        promiseAll.push(search(query, count));
     }
-    return promiseAll;
+    return Promise.all(promiseAll)
 };
 
-const buildSearchResultObject = (data) => {
+const getPromiseAllData = (arr) => {
+    const temp = [];
+    for (let i = 0; i < arr.length; i++) {
+        temp.push(arr[i].data)
+    }
+    return temp;
+};
+
+const buildSearchResult = (arr, simple = true) => {
+    const temp = [];
+    for(let i = 0; i < arr.length; i++) {
+        const currentSearch = arr[i];
+        temp.push(buildSearchResultObject(currentSearch, simple))
+    }
+    return temp;
+}
+
+const buildSearchResultObject = (data, simple = true) => {
     // requires response.data
     const obj = {}
     const arr = [];
     obj['previousPageToken'] = '';
     obj['nextPageToken'] = data.nextPageToken;
-    for (let i = 0; i < data.items; i ++) {
+    for (let i = 0; i < data.items.length; i++) {
         const currentVideo = data.items[i]
-        arr.push(parseVideo(currentVideo));
+        arr.push(parseVideo(currentVideo, simple));
     }
-    obj['items'] = arr; 
+    obj['items'] = arr;
     return obj;
 };
 
@@ -52,8 +69,8 @@ const parseVideo = (resultObj, simple = true) => {
         parsed['videoTitle'] = resultObj.snippet.title;
         parsed['channelId'] = resultObj.snippet.channelId;
         parsed['channelName'] = resultObj.snippet.channelTitle;
-        parsed['publishedAt'] = resultObj.snippet.publishedAt;
-        parsed['thumbnail'] = resultObj.snippet.thumbnails;
+        parsed['publishedAt'] = formatPublish(resultObj.snippet.publishedAt);
+        parsed['thumbnail'] = resultObj.snippet.thumbnails.medium.url;
         parsed['description'] = resultObj.snippet.description;
     } else {
         parsed['videoId'] = resultObj.id.videoId;
@@ -81,4 +98,8 @@ export {
     formatPublish,
     search,
     multiSearch,
+    getPromiseAllData,
+    buildSearchResult,
+    buildSearchResultObject,
+    parseVideo
 }
