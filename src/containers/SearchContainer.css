@@ -1,9 +1,3 @@
-@font-face{
-    font-family: 'Roboto';
-    font-weight: 400;
-    src: url('https://fonts.googleapis.com/css?Roboto:400,500,700') format('svg');
-}
-
 .row {
     margin-bottom: 20px;
 }
