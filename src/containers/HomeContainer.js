@@ -38,7 +38,7 @@ class HomeContainer extends React.Component {
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
                   part: 'snippet',
-                  maxResults: 1,
+                  maxResults: this.state.show,
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
@@ -61,6 +61,17 @@ class HomeContainer extends React.Component {
         })
     }
     
+    handleClick = (e) => {
+      const location = this.props.location.pathname
+      const valueId = e.target.attributes.getNamedItem('data-id').value
+      console.log('part 1 ',location)
+      console.log(valueId)
+      // location.push(`/video/${valueId}`)
+      console.log('part 2',location)
+      // const valueId = e.target.attributes.getNamedItem('data-id').value
+      // this.props.history.push(`/video/${valueId}`)
+      /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);*/
+       }
       
 obj = {
   videoId: 'FStiNMo4-Jk',
@@ -81,13 +92,9 @@ obj = {
 
 render(){
   let data = this.state.currentUser.feed
-  console.log('this is the feedVideos',data)
+  let dummy = this.obj
       return <>
         <div className='container-fluid'>
-            <div className='row'>
-                <h5>Nav Bar</h5>
-            </div>
-            <hr/>
             <div className='row'>
                 <h4>Hi User</h4>
             </div>
@@ -99,10 +106,10 @@ render(){
                     <div className="col-9">
                     {/* {(!this.state._isLoaded)? <h1>NO LOADING</h1>: 
                          this.state.feedVideos.slice(1).map((e,i)=>{
-                        return e.returned === false ? <p>No videos found for feed</p> : <p><VideoPlayer videos = {this.obj}/></p>
+                        return e.returned === false ? <p key={i}>No videos found for feed</p> : <p key={i}>Explorer</p>
                         })
                     } */}
-                   <VideoPlayer videos = {data}/>
+                   <VideoPlayer videos = {data} dummy={dummy} click ={this.handleClick}/>
                     </div>
                 </div>
             </div>
