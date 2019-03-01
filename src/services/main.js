@@ -170,7 +170,8 @@ const numberComma = (string) => {
     return newString;
 };
 
-const removeElement = (arr, index) => {
+const removeArrayElement = (arr, index) => {
+    if(typeof index !== 'number') return arr;
     const newArray = [...arr];
     return newArray.slice(0, index).concat(newArray.slice(index + 1));
 };
@@ -179,7 +180,7 @@ export {
     capitalize,
     formatPublish,
     numberComma,
-    removeElement,
+    removeArrayElement,
     search,
     multiSearch,
     getPromiseAllData,
