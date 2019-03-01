@@ -67,6 +67,12 @@ updateInputValue = (e) => {
     this.setState({inputValue: e.target.value})
 
 }
+handleUserClick = e => {
+    
+    let index = parseInt(e.target.id)
+    localStorage.setItem('currentUser',JSON.stringify(this.state.userList[index]))
+    this.setState({currentUser:this.state.userList[index]})
+}
 
 render(){
     return (<>
@@ -81,7 +87,7 @@ render(){
                         </div>
                             <div className ='col-6'>
                         <h3>User List</h3>
-                            <div><UserList state = {this.state} removeUser ={this.removeUser}/> </div>
+                            <div><UserList state = {this.state}  handleUserClick = {this.handleUserClick} removeUser ={this.removeUser}/> </div>
                         </div>
                     </div>
                 </div>
