@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-
+import VideoPlayer from '../components/Explorer'
 
 class HomeContainer extends React.Component {
         constructor(props) {
@@ -33,7 +33,7 @@ class HomeContainer extends React.Component {
         componentDidMount() { 
             /*return Promise.all(*/
                 this.state.currentUser.feed.map((e,i)=>{
-             axios({
+            axios({
                 method: 'get',
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
@@ -42,7 +42,7 @@ class HomeContainer extends React.Component {
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
-                  key: 'AIzaSyBcCsdu9K95VsD2umeUKsC-Dj2F-GFgs08',
+                  // key: 'AIzaSyCb4Jbt3GZj63vr8JTRF8xV67Oae0hBQco',
                   q:  e,
                   pageToken: ''
                 }
@@ -61,8 +61,27 @@ class HomeContainer extends React.Component {
         })
     }
     
-            
+      
+obj = {
+  videoId: 'FStiNMo4-Jk',
+  videoTitle: "Logic - H3 Podcast #105",
+  channelTitle: 'H3 Podcast',
+  description: "Thank you to Logic for joining us! Thanks to http://PolicyGenius.com & http://JoinHoney.com/H3 & http://StitchFix.com/H3 & https://GetQuip.com/H3 for sponsoring ...",
+  publishedAt: "2019-02-22T01:05:31.000Z",
+  thumbnails: {
+    default:{
+      height: 90,
+      url: "https://i.ytimg.com/vi/FStiNMo4-Jk/default.jpg",
+      width: 120,
+    },
+    high: { url: "https://i.ytimg.com/vi/FStiNMo4-Jk/hqdefault.jpg", width: 480, height: 360 },
+    medium: { url: "https://i.ytimg.com/vi/FStiNMo4-Jk/mqdefault.jpg", width: 320, height: 180 }
+  }
+}    
+
 render(){
+  let data = this.state.currentUser.feed
+  console.log('this is the feedVideos',data)
       return <>
         <div className='container-fluid'>
             <div className='row'>
@@ -78,11 +97,12 @@ render(){
                         <h3>FeedBox</h3>
                     </div>
                     <div className="col-9">
-                    {(!this.state._isLoaded)? <h1>NO LOADING</h1>: 
+                    {/* {(!this.state._isLoaded)? <h1>NO LOADING</h1>: 
                          this.state.feedVideos.slice(1).map((e,i)=>{
-                        return e.returned === false ? <p>No videos found for feed</p> : <p>Explorer</p>
+                        return e.returned === false ? <p>No videos found for feed</p> : <p><VideoPlayer videos = {this.obj}/></p>
                         })
-                    }
+                    } */}
+                   <VideoPlayer videos = {data}/>
                     </div>
                 </div>
             </div>
