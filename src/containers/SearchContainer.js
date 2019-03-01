@@ -35,7 +35,7 @@ class SearchContainer extends React.Component {
                 params: this.props.match.params.search_query,
                 data: false, 
                 dataSet: [],
-                show: 3,
+                show: 1,
                 }
             }
 
@@ -62,6 +62,7 @@ class SearchContainer extends React.Component {
                 }
               })
               .then((response)=>{
+                  console.log(response)
                   this.setState({
                       data: true,
                       dataset: this.state.dataSet.push(response) });
