@@ -15,7 +15,7 @@ const Userlist = props => {
                         {userList.map((currUser,i) => {
                             return (
                             <div key = {i} >
-                                <p  style={{'display':'inline','marginRight':'75%'}}   id={i} >{currUser.name}</p>
+                                <p  style={{'display':'inline','marginRight':'75%'}}   id={i} onClick={props.handleUserClick} >{currUser.name}</p>
                                 <span  id={i} onClick={props.removeUser} className="badge badge-dark">Remove User</span>
                                 </div>
                             )
