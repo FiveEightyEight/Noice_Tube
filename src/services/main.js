@@ -143,6 +143,10 @@ const exploreFeed = (arr, count = 10) => {
         })
 }
 
+const capitalize = (str) => {
+    if(typeof str !== 'string') return;
+    return str[0].toUpperCase().concat(str.slice(1));
+};
 
 const formatPublish = (publishedAt) => {
     // publishedAt needs to be a string
@@ -154,6 +158,7 @@ const formatPublish = (publishedAt) => {
 }
 
 export {
+    capitalize,
     formatPublish,
     search,
     multiSearch,
