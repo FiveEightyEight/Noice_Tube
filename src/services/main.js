@@ -157,6 +157,19 @@ const formatPublish = (publishedAt) => {
     return moment(published).fromNow()
 }
 
+numberComma = (string) => {
+    const str = string;
+    let newString = '';
+    for (let i = 0; i < str.length; i ++) {
+        if (i % 3 === 0 && i !== 0) {
+            newString = ',' + newString;    
+        }
+        const char = str[str.length - i - 1]
+        newString = char + newString;
+    }
+    return newString;
+};
+
 export {
     capitalize,
     formatPublish,
