@@ -3,13 +3,13 @@ import axios from 'axios';
 import API_KEY from './API_KEY';
 
 
-const search = (query, page = '') => {
+const search = (query, count = 10, page = '') => {
     return axios({
         method: 'get',
         url: 'https://www.googleapis.com/youtube/v3/search',
         params: {
           part: 'snippet',
-          maxResults: 1,
+          maxResults: count,
           videoDefinition: 'high',
           type: 'video',
           videoEmbeddable: 'true',
@@ -29,7 +29,29 @@ const multiSearch = (array) => {
         promiseAll.push(search(query));
     }
     return promiseAll;
-}
+};
+
+const parseSearch = (resultObj, simple = true) => {
+    const parsed = {};
+    if (simple) {
+    parsed['videoId'] = resultObj.id.videoId;
+    parsed['videoTitle'] = resultObj.snippet.title;
+    parsed['channelId'] = resultObj.snippet.channelId;
+    parsed['channelName'] = resultObj.snippet.channelTitle;
+    parsed['publishedAt'] = resultObj.snippet.publishedAt;
+    parsed['thumbnail'] = resultObj.snippet.thumbnails;
+    parsed['description'] = resultObj.snippet.description;
+    } else {
+    parsed['videoId'] = resultObj.id.videoId;
+    parsed['videoTitle'] = resultObj.snippet.title;
+    parsed['channelId'] = resultObj.snippet.channelId;
+    parsed['channelName'] = resultObj.snippet.channelTitle;
+    parsed['publishedAt'] = resultObj.snippet.publishedAt;
+    parsed['thumbnail'] = resultObj.snippet.thumbnails;
+    parsed['description'] = resultObj.snippet.description;
+    }
+    return parsed;
+};
 
 
 const formatPublish = (publishedAt) => {
