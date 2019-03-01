@@ -1,4 +1,36 @@
 import * as moment from 'moment';
+import axios from 'axios';
+import API_KEY from './API_KEY';
+
+
+const search = (query, page = '') => {
+    return axios({
+        method: 'get',
+        url: 'https://www.googleapis.com/youtube/v3/search',
+        params: {
+          part: 'snippet',
+          maxResults: 1,
+          videoDefinition: 'high',
+          type: 'video',
+          videoEmbeddable: 'true',
+          key: API_KEY,
+          q:  query,
+          pageToken: page,
+        }
+      }); 
+};
+
+const multiSearch = (array) => {
+    if(array.length <= 0) throw new Error('multiSearch requires at least one query string');
+    const promiseAll = [];
+    for (let i = 0; i < array.length; i++) {
+        const query = array[i];
+        if(typeof query !== 'string') throw new Error(`multiSearch requires strings data\nIndex Error: ${i}. Query: `, query);
+        promiseAll.push(search(query));
+    }
+    return promiseAll;
+}
+
 
 const formatPublish = (publishedAt) => {
     // publishedAt needs to be a string
@@ -11,4 +43,6 @@ const formatPublish = (publishedAt) => {
 
 export {
     formatPublish,
+    search,
+    multiSearch,
 }
