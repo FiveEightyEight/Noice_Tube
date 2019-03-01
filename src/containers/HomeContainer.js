@@ -38,7 +38,7 @@ class HomeContainer extends React.Component {
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
                   part: 'snippet',
-                  maxResults: 1,
+                  maxResults: this.state.show,
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
@@ -66,10 +66,6 @@ render(){
       return <>
         <div className='container-fluid'>
             <div className='row'>
-                <h5>Nav Bar</h5>
-            </div>
-            <hr/>
-            <div className='row'>
                 <h4>Hi User</h4>
             </div>
             <hr/>
@@ -80,7 +76,7 @@ render(){
                     <div className="col-9">
                     {(!this.state._isLoaded)? <h1>NO LOADING</h1>: 
                          this.state.feedVideos.slice(1).map((e,i)=>{
-                        return e.returned === false ? <p>No videos found for feed</p> : <p>Explorer</p>
+                        return e.returned === false ? <p key={i}>No videos found for feed</p> : <p key={i}>Explorer</p>
                         })
                     }
                     </div>
