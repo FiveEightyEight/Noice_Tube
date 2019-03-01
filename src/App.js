@@ -5,8 +5,6 @@ import SearchContainer from './containers/SearchContainer'
 import Video from './containers/Video'
 import FeedList from './containers/FeedList'
 import HomeContainer from './containers/HomeContainer';
-
-
 import NavBar from './components/NavBar'
 
 class App extends Component {
