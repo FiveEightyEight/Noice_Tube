@@ -3,7 +3,7 @@ import './SearchContainer.css';
 import SearchResults from '../components/SearchResults';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-import {search, getPromiseAllData, buildSearchResult, parseVideo, formatPublish, buildSearchResultObject} from '../services/main';
+import {search, parseVideo, formatPublish, buildSearchResultObject} from '../services/main';
 
 
 const locationHashChanged =() => {
@@ -49,20 +49,15 @@ class SearchContainer extends React.Component {
             }
         
         componentDidMount() {
-            search(dealWithSpaces(query),3)
+            search(dealWithSpaces(query),this.state.show)
             .then((data)=>{
-                console.log(data)
                 return buildSearchResultObject(data, query)
             })
-            .then((dataObj)=>{
-                console.log(dataObj)
-               return  parseVideo(dataObj)
-            })
-            .then((parse)=>{
+            .then((obj)=>{
                 this.setState({
                     data: true,
-                    dataset: this.state.dataSet.push(parse)
-                })
+                    dataset: this.state.dataSet.push(obj)
+                }); 
             })
             .catch((error)=>{
                 return error
@@ -98,6 +93,7 @@ class SearchContainer extends React.Component {
             }*/
 
 render(){
+     console.log(this.state)
       return <>
         <div className='container-fluid'>
         <hr></hr>
