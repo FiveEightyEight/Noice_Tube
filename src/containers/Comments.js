@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Comments.css'
 import axios from 'axios'
 
 class Comments extends Component {
@@ -25,15 +26,12 @@ class Comments extends Component {
             }
           })
           .then(response=>{
-              /*
-                response.items = [{.snipet.authorDisplayName, .snipet.authorProfileImageurl, .snippet.texturl}]
-              */
-             console.log(response)
+              console.log(response)
             let comments = [];
              response.data.items.forEach(element => {
                 let newObj =  {
                    username: element.snippet.topLevelComment.snippet.authorDisplayName,
-                   profilePic: element.snippet.topLevelComment.snippet.authorProfileImageurl,
+                   profilePic: element.snippet.topLevelComment.snippet.authorProfileImageUrl,
                    comment: element.snippet.topLevelComment.snippet.textDisplay
                 }
                 comments.push(newObj)
@@ -55,9 +53,19 @@ class Comments extends Component {
                
                    this.state.comments.map((e,i)=>{
                        return(
+                           <div key={i}>
                         <div className='row'>
+                        <div className='col'>
+                        </div>
+                        <div className='col-4'>
+                        <p className='username'>{e.username}</p>
+                        <img className='rounded-circle' src={e.profilePic} />
                         <p>{e.comment}</p>
-                       </div>   
+                        </div>
+                        <div className='col col-6'>
+                        </div>
+                       </div> 
+                       </div>  
                        ) 
                    })
                
