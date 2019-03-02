@@ -6,8 +6,7 @@ const Userlist = props => {
         return;
     }
     else {
-        console.log(props, 'is props in USERLIST')
-        console.log(props.state.userList, 'is list')
+        
         const userList = props.state.userList    
     return(
             <>

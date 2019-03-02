@@ -8,37 +8,28 @@ class FeedEditor extends React.Component {
             super(props)
             this.state = {
                 currentUser: {
-                    name: 'ramon',
+                    name: 'default',
                     feed: ['music'],
                 }
             }
         }
-
-        /*
-          components 
-          FeedList - Pill Badge with click handler
-          Input form - for adding feed to user.
-        */
-
-        /* APP LOGIC
-        1.pull feed from localStorage 
-        */
         getFeed() {
             let user;
-            user = localStorage.getItem('currentUser') || (this.state.currentUser); // grab 
+            user = localStorage.getItem('currentUser');
+            console.log(user, 'user in feedlist')
+            if(!user){
+                user = this.state.currentUser;
+            } // grab 
             if (typeof (user) === 'string') {
                 user = JSON.parse(user)
             }
             this.setState({
                 currentUser: user
-            }, () => {
-                localStorage.setItem('currentUser', JSON.stringify(this.state.currentUser))
             })
         }
 
         componentDidMount() {
             this.getFeed()
-            console.log(this.state)
         }
 
         //2.when user adds to their feed -> 
@@ -50,27 +41,22 @@ class FeedEditor extends React.Component {
                 }
                 newState.currentUser.feed = newState.currentUser.feed.concat(e.target.value)
                 e.target.value = ""
+                localStorage.setItem(`currentUser`, JSON.stringify(newState.currentUser))
                 this.setState({
                     currentUser: newState.currentUser
-                }, () => {
-                    localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
                 })
             }
 
         }
 
         handleFeedRemove = e => {
-            console.log(e.target.id)
             let id = parseInt(e.target.id);
             let newState = this.state;
             let newArr = newState.currentUser.feed.slice(0,id).concat(newState.currentUser.feed.slice(id+1))
             newState.currentUser.feed = newArr
-            console.log(newArr)
-            // newState.currentUser.feed = newState.currentUser.feed.slice(e.target.id);
+            localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
             this.setState({
                 currentUser: newState.currentUser
-            }, () => {
-                localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
             })
         }
 
