@@ -77,10 +77,7 @@ class FeedEditor extends React.Component {
                 currentUser: newState.currentUser
             })
         }
-        componentDidUpdate(p, s){
-            console.log('Previous State: ', s)
-            console.log('Current State: ', this.state)
-        }
+       
 
 render(){
       return( 

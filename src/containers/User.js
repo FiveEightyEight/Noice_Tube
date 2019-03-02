@@ -76,10 +76,7 @@ handleUserClick = e => {
         console.log(this.state.currentUser, 'current user is now')
     })
 }
-componentDidUpdate(p, s){
-    console.log('Previous State: ', s)
-    console.log('Current State: ', this.state)
-}
+
 
 render(){
     return (<>
