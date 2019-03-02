@@ -17,9 +17,9 @@ class HomeContainer extends React.Component {
                 _isLoaded: false,
                 currentUser: {
                   name: 'default',
-                  feed: ['music', 'feed', 'podcast', ],
+                  feed: ['music', 'feed', 'podcast', 'chef' ], //local storage || ['music']
                 },
-                show:  4,
+                show:  1,
                 feedVideos: {},
               }
             }
@@ -79,10 +79,12 @@ class HomeContainer extends React.Component {
     }
 
     handleLoadMore = (e) => {
-        const queryName = e.target.attributes.getNamedItem('data-content').value
+        const queryName = e.target.attributes.getNamedItem('data-id').value
+        console.log("Q",queryName)
         exploreLoadMore(this.state.feedVideos[queryName])
         .then((newFeedVideos)=>{
             const currentFeedObject = Object.assign(this.state.feedVideos, newFeedVideos)
+            console.log("Current",currentFeedObject);
             this.setState({
                 _isLoaded: true,
                  feedVideos: currentFeedObject,
@@ -105,7 +107,7 @@ render(){
                     <div className='container'>
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
-                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
+                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p key={i}>No results found</p>
                         })
                     } 
                     </div>
