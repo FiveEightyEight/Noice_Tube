@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
 import FeedBox from '../components/FeedBox';
+import Greeting from '../components/Greeting'
 // import VVideoCard from '../components/VVideoCard'
 
 
@@ -98,8 +99,8 @@ class HomeContainer extends React.Component {
 render(){
       return <>
         <div className='container-fluid'>
-            <div className='row'>
-                <h4>Hi User</h4>
+            <div className='row  mx-auto' style={{backgroundColor:'#6B717E'}}>
+                <Greeting name = {this.state.currentUser.name}/>
             </div>
             <hr/>
             <div className='row'>
