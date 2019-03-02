@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Video.css';
+import Comments from './Comments'
 
 const VideoPlayer = ({ id }) => {
     const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
@@ -49,6 +50,7 @@ class Video extends Component {
     updateDescription = (id) => {
         this.getVideoDescription(this.state.videoID)
             .then(response => {
+                console.log(response.data);
                 return response.data
             })
             .then(data => {
@@ -113,6 +115,7 @@ class Video extends Component {
                         </p>
                     </div>
                 </div>
+                <Comments videoID={this.state.videoID}></Comments>
             </div>
         )
     }
