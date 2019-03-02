@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-import VideoPlayer from '../components/Explorer'
+import Explorer from '../components/Explorer'
+import VVideoCard from '../components/VVideoCard'
 
 class HomeContainer extends React.Component {
         constructor(props) {
@@ -91,7 +92,7 @@ obj = {
 }    
 
 render(){
-  let data = this.state.currentUser.feed
+  let data = this.state.feedVideos
   let dummy = this.obj
       return <>
         <div className='container-fluid'>
@@ -109,7 +110,7 @@ render(){
                         return e.returned === false ? <p key={i}>No videos found for feed</p> : <p key={i}>Explorer</p>
                         })
                     } */}
-                   <VideoPlayer videos = {data} dummy={dummy} click ={this.handleClick}/>
+                   <VVideoCard videos = {data} dummy={dummy} click ={this.handleClick}/>
                     </div>
                 </div>
             </div>

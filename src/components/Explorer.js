@@ -2,9 +2,9 @@ import React from 'react';
 import './Explorer.css'
 require('bootstrap')
 
-const VideoPlayer = ( props ) => {
+const Explorer = ( props ) => {
+            VideoPlayer(props)
     return <div className ='container'>
-        
             {
                 props.videos.map(e=>{
                     return (
@@ -21,26 +21,39 @@ const VideoPlayer = ( props ) => {
                             </div>
                             <button>SHOW MORE</button>
                         </div>
+                            )
 
-)
-
-
-})
-}
-
-</div>
+                        })
+                    }
+            </div>
    
    
-  }
+                }
 
 //   http://localhost:3000/?#/video/:video_id
 
+const arr = []
 
-const Explorer = (props) =>{
-    console.log(props.dummy)
-            
-           
+const VideoPlayer = (props) =>{
+    const apiData = props.videos;
+
+    apiData.map((e)=>{
+
+        if(!e.dataSet.data){
+            return (<p>is loading</p>)
+        } else
         
+        console.log('part 22222222',e.dataSet.data)
+        arr.push(e.dataSet.data.items)
+    })            
+           
+        data(arr)
 }
 
-export default VideoPlayer
+const data = (arr) =>{
+    arr.map((e)=>{
+        console.log(e)
+    })
+}
+
+export default Explorer
