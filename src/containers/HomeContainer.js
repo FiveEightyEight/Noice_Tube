@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import Explorer from '../components/Explorer'
+// import VVideoCard from '../components/VVideoCard'
 import {buildFeedVideos, populateFeedVideos} from '../services/main';
-import Explorer from '../components/Explorer';
-
 
 class HomeContainer extends React.Component {
         constructor(props) {
@@ -12,9 +12,9 @@ class HomeContainer extends React.Component {
                 _isLoaded: false,
                 currentUser: {
                   name: 'default',
-                  feed: ['music', 'feed', 'podcast'],
+                  feed: ['music', 'feed', 'podcast', ],
                 },
-                show:  1,
+                show:  4,
                 feedVideos: {},
               }
             }
@@ -42,7 +42,7 @@ class HomeContainer extends React.Component {
 
             /*return Promise.all(
                 this.state.currentUser.feed.map((e,i)=>{
-             axios({
+            axios({
                 method: 'get',
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
@@ -51,7 +51,7 @@ class HomeContainer extends React.Component {
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
-                  key: 'AIzaSyBcCsdu9K95VsD2umeUKsC-Dj2F-GFgs08',
+                  // key: 'AIzaSyCb4Jbt3GZj63vr8JTRF8xV67Oae0hBQco',
                   q:  e,
                   pageToken: ''
                 }
@@ -70,11 +70,9 @@ class HomeContainer extends React.Component {
         })*/
     }
     
-    componentDidUpdate(prevProps, prevState) {
-        console.log("PrevState",prevState);
-        console.log("currentState", this.state);
-
-    }
+  
+      
+  
             
 render(){
     console.log("Toka",this.state)
@@ -89,13 +87,14 @@ render(){
                         <h3>FeedBox</h3>
                     </div>
                     <div className="col-9">
+                    <div className='container'>
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
                              console.log("e", e)
-                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items}/>: <p key={i}>No results found</p>
-            
+                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items} handleClick={this.handleClick}/>: <p>No results found</p>
                         })
-                    }
+                    } 
+                    </div>
                     </div>
                 </div>
             </div>
