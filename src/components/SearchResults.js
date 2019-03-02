@@ -5,7 +5,7 @@ import './SearchResults.css';
 
 
 const SearchResults = (props) => {
-    console.log('B')
+    console.log('B', props.resultsReturned)
     return <>
                 {
                     props.resultsReturned[0].data.items.map((e, i) => {
