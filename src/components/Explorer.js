@@ -21,7 +21,4 @@ const Explorer = ( props ) => {
     )
 }
 
-//   http://localhost:3000/?#/video/:video_id
-
-
-export default Explorer
+export default withRouter(Explorer);
