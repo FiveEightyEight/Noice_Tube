@@ -1,16 +1,24 @@
-import React, {Fragment} from 'react';
-import { withRouter} from 'react-router';
+import React from 'react';
+import './Explorer.css'
+import VVideoCard from './VVideoCard'
+require('bootstrap')
 
 
-
-const Explorer = (props) => {
-    console.log("P",props.results)
-    return <>
-                 <Fragment key={props.query}>
-                      <div data-content={props.query} onClick={props.clickLoad}>{props.query}</div>
-                 </Fragment>
-            
-    </>
+const Explorer = ( props ) => {
+            console.log('explorer props',props)
+    return (<div className = 'container'>
+                <div className = 'row'>
+                {props.results.map((e, i) => {
+                    console.log('lets see what e is',e)
+                        return (<>
+                                <VVideoCard e = {e} key ={i}  click = {props.handleClick}/>
+                            </>)
+                        })
+                }
+                </div>
+                    <button className='btn btn-primary'>SHOW MORE</button>
+            </div>
+    )
 }
 
 export default withRouter(Explorer);

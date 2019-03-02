@@ -1,8 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+<<<<<<< HEAD
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
 
+=======
+import Explorer from '../components/Explorer'
+// import VVideoCard from '../components/VVideoCard'
+import {buildFeedVideos, populateFeedVideos} from '../services/main';
+>>>>>>> master
 
 class HomeContainer extends React.Component {
         constructor(props) {
@@ -12,9 +18,9 @@ class HomeContainer extends React.Component {
                 _isLoaded: false,
                 currentUser: {
                   name: 'default',
-                  feed: ['music', 'feed', 'podcast'],
+                  feed: ['music', 'feed', 'podcast', ],
                 },
-                show:  1,
+                show:  4,
                 feedVideos: {},
               }
             }
@@ -42,7 +48,7 @@ class HomeContainer extends React.Component {
 
             /*return Promise.all(
                 this.state.currentUser.feed.map((e,i)=>{
-             axios({
+            axios({
                 method: 'get',
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
@@ -51,7 +57,7 @@ class HomeContainer extends React.Component {
                   videoDefinition: 'high',
                   type: 'video',
                   videoEmbeddable: 'true',
-                  key: 'AIzaSyBcCsdu9K95VsD2umeUKsC-Dj2F-GFgs08',
+                  // key: 'AIzaSyCb4Jbt3GZj63vr8JTRF8xV67Oae0hBQco',
                   q:  e,
                   pageToken: ''
                 }
@@ -97,12 +103,13 @@ render(){
                         <h3>FeedBox</h3>
                     </div>
                     <div className="col-9">
+                    <div className='container'>
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
-                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} clickVid={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
-            
+                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
                         })
-                    }
+                    } 
+                    </div>
                     </div>
                 </div>
             </div>
