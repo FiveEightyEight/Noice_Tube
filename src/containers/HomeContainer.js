@@ -1,14 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-<<<<<<< HEAD
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
 
-=======
-import Explorer from '../components/Explorer'
-// import VVideoCard from '../components/VVideoCard'
-import {buildFeedVideos, populateFeedVideos} from '../services/main';
->>>>>>> master
+
 
 class HomeContainer extends React.Component {
         constructor(props) {
