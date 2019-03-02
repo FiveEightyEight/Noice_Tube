@@ -7,6 +7,7 @@ class FeedEditor extends React.Component {
         constructor(props) {
             super(props)
             this.state = {
+                inputValue:'',
                 currentUser: {
                     name: 'default',
                     feed: ['music'],
@@ -46,21 +47,20 @@ class FeedEditor extends React.Component {
 
         //2.when user adds to their feed -> 
         handleFeedAdd = (e) => {
-            if (e.keyCode === 13) {
                 let newState = this.state;
-                if(newState.currentUser.feed.indexOf(e.target.value) !== -1){
+                if(newState.currentUser.feed.includes(this.state.inputValue)){
                     return alert('feed is duplicate! please check your inputs')
                 }
                 // UPDATE USERLIST 
                 // FIND CURR USER in FEED LIST AND UPDATE
-                newState.currentUser.feed = newState.currentUser.feed.concat(e.target.value)
+                newState.currentUser.feed = newState.currentUser.feed.concat(this.state.inputValue)
                 this.updateUserList(newState.currentUser);
                 e.target.value = ""
                 localStorage.setItem(`currentUser`, JSON.stringify(newState.currentUser))
                 this.setState({
                     currentUser: newState.currentUser
                 })
-            }
+            
 
         }
 
@@ -77,7 +77,10 @@ class FeedEditor extends React.Component {
                 currentUser: newState.currentUser
             })
         }
-       
+        updateInputValue = (e) => {
+            this.setState({inputValue: e.target.value})
+        
+        }
 
 render(){
       return( 
@@ -85,7 +88,10 @@ render(){
       <div className='row'>
       <div className='col col-6'>
       <h1>Create a new Explore Feed </h1>
-      <input type='text'className='.input-sm' onKeyDown={this.handleFeedAdd}></input>
+      <form onSubmit={this.handleFeedAdd} className='form-inline'>
+      <input type='text'className='.input-sm'  onChange={this.updateInputValue}></input>
+      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Add Feed</button>
+      </form>
       </div>
        <Feedlist key= {'feed'}feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/>
       </div>
