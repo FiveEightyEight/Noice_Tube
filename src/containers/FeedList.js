@@ -89,7 +89,7 @@ render(){
       <div className='col col-6'>
       <h1>Create a new Explore Feed </h1>
       <form onSubmit={this.handleFeedAdd} className='form-inline'>
-      <input type='text'className='.input-sm'  onChange={this.updateInputValue}></input>
+      <input type='text'className='form-control mr-sm-2'  onChange={this.updateInputValue}></input>
       <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Add Feed</button>
       </form>
       </div>
