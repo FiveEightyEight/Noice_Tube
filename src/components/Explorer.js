@@ -13,8 +13,4 @@ const Explorer = (props) => {
     </>
 }
 
-<<<<<<< HEAD
 export default withRouter(Explorer);
-=======
-export default withRouter(Explorer);
->>>>>>> master
