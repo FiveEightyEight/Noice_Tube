@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import {buildFeedVideos, populateFeedVideos} from '../services/main';
+import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
 
 
@@ -71,13 +71,21 @@ class HomeContainer extends React.Component {
     }
     
     componentDidUpdate(prevProps, prevState) {
-        console.log("PrevState",prevState);
-        console.log("currentState", this.state);
-
     }
+
+    handleLoadMore = (e) => {
+        const queryName = e.target.attributes.getNamedItem('data-content').value
+        exploreLoadMore(this.state.feedVideos[queryName])
+        .then((newFeedVideos)=>{
+            const currentFeedObject = Object.assign(this.state.feedVideos, newFeedVideos)
+            this.setState({
+                _isLoaded: true,
+                 feedVideos: currentFeedObject,
+            })
+        })
+        }
             
 render(){
-    console.log("Toka",this.state)
       return <>
         <div className='container-fluid'>
             <div className='row'>
@@ -91,8 +99,7 @@ render(){
                     <div className="col-9">
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
-                             console.log("e", e)
-                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items}/>: <p>No results found</p>
+                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} clickVid={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
             
                         })
                     }
