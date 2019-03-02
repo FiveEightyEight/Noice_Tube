@@ -144,6 +144,41 @@ const exploreFeed = (arr, count = 10) => {
         })
 }
 
+// ----> Description -------> ---> --> -> > 
+const callAPI = (url, params) => {
+    return axios({
+        method: 'get',
+        url,
+        params,
+    })
+}
+
+const updateDescription = (id) => {
+    const params = {
+        part: 'id,snippet,statistics',
+        key: API_KEY,
+        id, // id param
+    }
+    return callAPI('https://www.googleapis.com/youtube/v3/videos', params)
+}
+
+const getVideoDescription = (id) => {
+    return updateDescription(id)
+        .then(response => {
+            const info = {
+                title: response.data.items[0].snippet.title,
+                description: response.dataitems[0].snippet.description,
+                views: response.data.items[0].statistics.viewCount,
+                channel: response.data.items[0].snippet.channelTitle,
+            }
+            return info;
+        })
+        .catch(err => {
+            return err;
+        })
+}
+
+
 const capitalize = (str) => {
     if(typeof str !== 'string') return str;
     return str[0].toUpperCase().concat(str.slice(1));
@@ -199,6 +234,7 @@ export {
     search,
     multiSearch,
     getPromiseAllData,
+    getVideoDescription,
     buildSearchResult,
     buildSearchResultObject,
     buildFeedVideos,
