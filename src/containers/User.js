@@ -31,7 +31,9 @@ class User extends React.Component {
             this.setState({inputValue: ''})
             return alert('User already exist');
         }
-        const newUser = {
+        else
+
+       { const newUser = {
             name: this.state.inputValue,
             feed:['music']
         }
@@ -45,7 +47,7 @@ class User extends React.Component {
             userList:list,
             currentUser: newUser,
             inputValue: '',
-        })
+        })}
         
 }
     componentDidMount = () =>{
@@ -57,7 +59,6 @@ class User extends React.Component {
     removeUser = (e) =>{
         let userList = this.state.userList
         let removeUser = parseInt(e.target.id);
-        
         let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
         localStorage.setItem('userList', JSON.stringify(remove))
          this.setState({userList: remove})
@@ -68,11 +69,14 @@ updateInputValue = (e) => {
 
 }
 handleUserClick = e => {
-    
     let index = parseInt(e.target.id)
+    console.log(this.state.userList[index])
     localStorage.setItem('currentUser',JSON.stringify(this.state.userList[index]))
-    this.setState({currentUser:this.state.userList[index]})
+    this.setState({currentUser:this.state.userList[index]},()=>{
+        console.log(this.state.currentUser, 'current user is now')
+    })
 }
+
 
 render(){
     return (<>

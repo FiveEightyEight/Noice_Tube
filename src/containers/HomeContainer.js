@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router';
 import Explorer from '../components/Explorer'
-import VVideoCard from '../components/VVideoCard'
+// import VVideoCard from '../components/VVideoCard'
+import {buildFeedVideos, populateFeedVideos} from '../services/main';
 
 class HomeContainer extends React.Component {
         constructor(props) {
@@ -12,15 +12,10 @@ class HomeContainer extends React.Component {
                 _isLoaded: false,
                 currentUser: {
                   name: 'default',
-                  feed: ['music', 'feed', 'podcast'],
+                  feed: ['music', 'feed', 'podcast', ],
                 },
-                show:  1,
-                feedVideos: [
-                    {
-                        returned: false,
-                        dataSet: [],
-                    }
-                ],
+                show:  4,
+                feedVideos: {},
               }
             }
 
@@ -32,7 +27,20 @@ class HomeContainer extends React.Component {
 }*/
 
         componentDidMount() { 
-            /*return Promise.all(*/
+            const feedVideos = buildFeedVideos(this.state.currentUser.feed);
+            this.setState({
+                feedVideos: feedVideos,
+            })
+            populateFeedVideos(this.state.feedVideos, this.state.currentUser.feed, this.state.show)
+                .then( newFeedVideos => {
+             this.setState({
+                 _isLoaded: true,
+                 feedVideos: newFeedVideos,
+                });
+            // return exploreLoadMore(feedVideos.music)
+            });
+
+            /*return Promise.all(
                 this.state.currentUser.feed.map((e,i)=>{
             axios({
                 method: 'get',
@@ -59,41 +67,15 @@ class HomeContainer extends React.Component {
                feedVideos: this.state.feedVideos.concat({data: false}),
             })
           });        
-        })
+        })*/
     }
     
-    handleClick = (e) => {
-      const location = this.props.location.pathname
-      // const valueId = e.target.attributes.getNamedItem('data-id').value
-      console.log('part 1 ',location)
-      // console.log(valueId)
-      // location.push(`/video/${valueId}`)
-      console.log('part 2',location)
-      // const valueId = e.target.attributes.getNamedItem('data-id').value
-      // this.props.history.push(`/video/${valueId}`)
-      /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);*/
-       }
+  
       
-obj = {
-  videoId: 'FStiNMo4-Jk',
-  videoTitle: "Logic - H3 Podcast #105",
-  channelTitle: 'H3 Podcast',
-  description: "Thank you to Logic for joining us! Thanks to http://PolicyGenius.com & http://JoinHoney.com/H3 & http://StitchFix.com/H3 & https://GetQuip.com/H3 for sponsoring ...",
-  publishedAt: "2019-02-22T01:05:31.000Z",
-  thumbnails: {
-    default:{
-      height: 90,
-      url: "https://i.ytimg.com/vi/FStiNMo4-Jk/default.jpg",
-      width: 120,
-    },
-    high: { url: "https://i.ytimg.com/vi/FStiNMo4-Jk/hqdefault.jpg", width: 480, height: 360 },
-    medium: { url: "https://i.ytimg.com/vi/FStiNMo4-Jk/mqdefault.jpg", width: 320, height: 180 }
-  }
-}    
-
+  
+            
 render(){
-  let data = this.state.feedVideos
-  let dummy = this.obj
+    console.log("Toka",this.state)
       return <>
         <div className='container-fluid'>
             <div className='row'>
@@ -105,12 +87,14 @@ render(){
                         <h3>FeedBox</h3>
                     </div>
                     <div className="col-9">
-                    {/* {(!this.state._isLoaded)? <h1>NO LOADING</h1>: 
-                         this.state.feedVideos.slice(1).map((e,i)=>{
-                        return e.returned === false ? <p key={i}>No videos found for feed</p> : <p key={i}>Explorer</p>
+                    <div className='container'>
+                    { 
+                         this.state.currentUser.feed.map((e,i)=>{
+                             console.log("e", e)
+                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items} handleClick={this.handleClick}/>: <p>No results found</p>
                         })
-                    } */}
-                   <VVideoCard videos = {data} dummy={dummy} click ={this.handleClick}/>
+                    } 
+                    </div>
                     </div>
                 </div>
             </div>
@@ -120,4 +104,6 @@ render(){
   }
 
   export default withRouter(HomeContainer);
+
+ /* e ? <Explorer key={i} results={e[this.state.currentUser.feed[i]]}/> : <p>No results found</p>*/
 
