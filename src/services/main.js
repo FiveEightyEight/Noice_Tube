@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import axios from 'axios';
 import API_KEY from './API_KEY';
+import React from 'react';
 
 
 const search = (query, count = 10, page = '') => {
@@ -144,8 +145,21 @@ const exploreFeed = (arr, count = 10) => {
 }
 
 const capitalize = (str) => {
-    if(typeof str !== 'string') return;
+    if(typeof str !== 'string') return str;
     return str[0].toUpperCase().concat(str.slice(1));
+};
+
+const formatDescription = (description) => {
+    // if(typeof str !== 'string') return description;
+    const array = description.split('\n')
+    return descriptionHelper(array);
+};
+
+const descriptionHelper = (arr) => {
+    if(arr.length === 0){
+        return;
+    }
+    return [<p key={arr.length - 1}>{arr[0]}</p>].concat(descriptionHelper(arr.slice(1)));
 };
 
 const formatPublish = (publishedAt) => {
@@ -179,6 +193,7 @@ const removeArrayElement = (arr, index) => {
 export {
     capitalize,
     formatPublish,
+    formatDescription,
     numberComma,
     removeArrayElement,
     search,
