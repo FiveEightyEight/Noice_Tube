@@ -107,7 +107,7 @@ render(){
                     <div className='container'>
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
-                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
+                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p key={i}>No results found</p>
                         })
                     } 
                     </div>
