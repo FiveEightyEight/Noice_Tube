@@ -14,15 +14,8 @@ class FeedEditor extends React.Component {
             }
         }
         getFeed() {
-            let user;
-            user = localStorage.getItem('currentUser');
-            console.log(user, 'user in feedlist')
-            if(!user){
-                user = this.state.currentUser;
-            } // grab 
-            if (typeof (user) === 'string') {
-                user = JSON.parse(user)
-            }
+           let user = JSON.parse(localStorage.getItem('currentUser')) || this.state.currentUser;
+            localStorage.setItem('currentUser',JSON.stringify(user));
             this.setState({
                 currentUser: user
             })
@@ -30,6 +23,25 @@ class FeedEditor extends React.Component {
 
         componentDidMount() {
             this.getFeed()
+        }
+        updateUserList(user){
+            // let user = this.state.currentUser;
+            // GRAB FROM LOCAL STORAGE USERLIST
+           let  userList = JSON.parse(localStorage.getItem('userList')) || [];
+           console.log(userList, 'USERLIST')
+           if (userList === undefined){
+               return;
+           }
+            for (let i = 0 ; i < userList.length; i++){
+              if(user.name === userList[i].name){
+                  userList[i] = user;
+                  break;
+              }
+              if (i === userList.length-1){
+                  userList.push(user);
+              }
+            }  
+            localStorage.setItem('userList',JSON.stringify(userList))
         }
 
         //2.when user adds to their feed -> 
@@ -39,7 +51,10 @@ class FeedEditor extends React.Component {
                 if(newState.currentUser.feed.indexOf(e.target.value) !== -1){
                     return alert('feed is duplicate! please check your inputs')
                 }
+                // UPDATE USERLIST 
+                // FIND CURR USER in FEED LIST AND UPDATE
                 newState.currentUser.feed = newState.currentUser.feed.concat(e.target.value)
+                this.updateUserList(newState.currentUser);
                 e.target.value = ""
                 localStorage.setItem(`currentUser`, JSON.stringify(newState.currentUser))
                 this.setState({
@@ -54,10 +69,17 @@ class FeedEditor extends React.Component {
             let newState = this.state;
             let newArr = newState.currentUser.feed.slice(0,id).concat(newState.currentUser.feed.slice(id+1))
             newState.currentUser.feed = newArr
+            // UPDATE USERLIST 
+            // FIND CURR USER in FEED LIST AND UPDATE
+            this.updateUserList(newState.currentUser);
             localStorage.setItem(`currentUser`, JSON.stringify(this.state.currentUser))
             this.setState({
                 currentUser: newState.currentUser
             })
+        }
+        componentDidUpdate(p, s){
+            console.log('Previous State: ', s)
+            console.log('Current State: ', this.state)
         }
 
 render(){
