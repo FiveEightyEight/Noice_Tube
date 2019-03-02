@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
+import FeedBox from '../components/FeedBox';
 // import VVideoCard from '../components/VVideoCard'
 
 
@@ -31,7 +32,7 @@ class HomeContainer extends React.Component {
            /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);
 }*/
 
-        componentDidMount() { 
+        componentDidMount() {
             const feedVideos = buildFeedVideos(this.state.currentUser.feed);
             this.setState({
                 feedVideos: feedVideos,
@@ -100,6 +101,7 @@ render(){
             <div className='row'>
                     <div className="col-3">
                         <h3>FeedBox</h3>
+                        <FeedBox feed={this.state.currentUser.feed} />
                     </div>
                     <div className="col-9">
                     <div className='container'>
