@@ -48,12 +48,12 @@ const buildSearchResult = (arr, simple = true) => {
     return temp;
 }
 
-const buildSearchResultObject = (dataObj, simple = true) => {
+const buildSearchResultObject = (dataObj, searchQuery, simple = true) => {
     // requires response.data
     const { data } = dataObj;
     const obj = {}
     const arr = [];
-    obj['query'] = dataObj.query;
+    obj['query'] = dataObj.query || searchQuery;
     obj['previousPageToken'] = '';
     obj['nextPageToken'] = data.nextPageToken;
     for (let i = 0; i < data.items.length; i++) {

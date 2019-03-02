@@ -3,6 +3,7 @@ import './SearchContainer.css';
 import SearchResults from '../components/SearchResults';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import {search, getPromiseAllData, buildSearchResult, parseVideo, formatPublish, buildSearchResultObject} from '../services/main';
 
 
 const locationHashChanged =() => {
@@ -22,6 +23,8 @@ const dealWithSpaces = (input) => {
     }
     return input;
 }
+
+const query = window.location.hash.slice(9)
 
 class SearchContainer extends React.Component {
         constructor(props) {
@@ -45,9 +48,29 @@ class SearchContainer extends React.Component {
            /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);*/
             }
         
+        componentDidMount() {
+            search(dealWithSpaces(query),3)
+            .then((data)=>{
+                console.log(data)
+                return buildSearchResultObject(data, query)
+            })
+            .then((dataObj)=>{
+                console.log(dataObj)
+               return  parseVideo(dataObj)
+            })
+            .then((parse)=>{
+                this.setState({
+                    data: true,
+                    dataset: this.state.dataSet.push(parse)
+                })
+            })
+            .catch((error)=>{
+                return error
+            })
 
-        componentDidMount() {   
-            axios({
+        }
+
+           /* axios({
                 method: 'get',
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
@@ -72,7 +95,7 @@ class SearchContainer extends React.Component {
                       data: false,
                   })
               });        
-            }
+            }*/
 
 render(){
       return <>
