@@ -92,7 +92,6 @@ const exploreLoadMore = (queryObject) => {
     const newQueryObj = {...queryObject}
     return search(queryObject.query, 4, queryObject.nextPageToken)
     .then(response => {
-        console.log(response)
         return response.data
     })
     .then(data => {
@@ -155,26 +154,57 @@ const callAPI = (url, params) => {
 }
 
 const updateDescription = (id) => {
-    const params = {
+    const descriptionUrl = 'https://www.googleapis.com/youtube/v3/videos'
+    const commentUrl = 'https://www.googleapis.com/youtube/v3/commentThreads'
+    const description = {
         part: 'id,snippet,statistics',
         key: API_KEY,
         id, // id param
     }
-    return callAPI('https://www.googleapis.com/youtube/v3/videos', params)
+    const comments =  {
+        part: 'snippet,replies',
+        videoId: id,
+        key: API_KEY,
+        textFormat:'plainText'
+      }
+    return Promise.all([callAPI(descriptionUrl, description),callAPI(commentUrl,comments)]) 
 }
 
 const getVideoDescription = (id) => {
     return updateDescription(id)
         .then(response => {
-            const info = {
-                title: response.data.items[0].snippet.title,
-                description: response.data.items[0].snippet.description,
-                views: response.data.items[0].statistics.viewCount,
-                channel: response.data.items[0].snippet.channelTitle,
+            let description = {};
+            let commentResponse = {};
+            for(let i = 0; i <response.length; i++){
+               if(response[i].data.kind === 'youtube#videoListResponse'){
+                   description = response[i].data;
+               }
+               if (response[i].data.kind === 'youtube#commentThreadListResponse'){
+                   commentResponse = response[i].data;
+               }
             }
-            // console.log(info)
-            return info;
+            const info = {
+                title: description.items[0].snippet.title,
+                description: description.items[0].snippet.description,
+                views: description.items[0].statistics.viewCount,
+                channel: description.items[0].snippet.channelTitle,
+            }
+            let comments = [];
+            commentResponse.items.forEach(element => {
+             let newObj =  {
+             username: element.snippet.topLevelComment.snippet.authorDisplayName,
+             profilePic: element.snippet.topLevelComment.snippet.authorProfileImageUrl,
+            comment: element.snippet.topLevelComment.snippet.textDisplay
+        }
+        comments.push(newObj)
         })
+       
+        return {
+            info,
+            comments,
+        }
+    })
+        
         .catch(err => {
             return err;
         })
