@@ -197,7 +197,6 @@ const getVideoDescription = (id) => {
             comment: element.snippet.topLevelComment.snippet.textDisplay
         }
         comments.push(newObj)
-            // console.log(info)
         })
        
         return {
@@ -210,29 +209,6 @@ const getVideoDescription = (id) => {
             return err;
         })
 }
-
-// axios({
-//     method: 'get',
-//     url: 'https://www.googleapis.com/youtube/v3/commentThreads',
-//     params: {
-//       part: 'snippet,replies',
-//       videoId: id,
-//       key: 'AIzaSyB-7-OJ42-7dRfTDbCgN5Kr7jNZXJwWKYE',
-//       textFormat:'plainText'
-//     }
-//   })
-//   .then(response=>{
-//       console.log(response)
-    
-//         this.setState({comments:comments},()=>{
-//             console.log(this.state)
-//         })
-//      });
-//   },err=>{    console.log(this.props.videoId)
-//   })
-//   .catch(err=>{
-//       console.log(err)
-//   })
 
 
 const capitalize = (str) => {
