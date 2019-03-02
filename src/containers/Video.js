@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getVideoDescription, numberComma, formatDescription } from '../services/main';
 import './Video.css';
+import Comments from './Comments'
 
 const VideoPlayer = ({ id }) => {
     const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
@@ -24,8 +25,9 @@ class Video extends Component {
                 description: '',
                 channel: '',
                 // publishedOn: 0000,
-                // comments: [{}, {}],
-            }
+            },
+            comments: [],
+
         }
     }
 
@@ -33,14 +35,18 @@ class Video extends Component {
     componentDidMount() {
         const { video_id } = this.props.match.params;
         getVideoDescription(video_id)
-        .then(info => {
+        .then(data=> {
+            console.log(data)
             this.setState({
                 videoID: video_id,
-                videoInfo: info,
+                videoInfo: data.info,
+                comments: data.comments,
             })
         })
     }
-
+    componentDidUpdate(){
+        console.log(this.state , 'state in video')
+    }
     render() {
         return (
             <div className='mt-5 container'>
@@ -64,6 +70,7 @@ class Video extends Component {
                         </div>
                     </div>
                 </div>
+                <Comments comments={this.state.comments}></Comments>
             </div>
         )
     }
