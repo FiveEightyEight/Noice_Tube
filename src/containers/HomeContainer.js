@@ -99,7 +99,12 @@ render(){
                     <div className="col-9">
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
+<<<<<<< HEAD
                             return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} clickVid={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
+=======
+                             console.log("e", e)
+                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items}/>: <p key={i}>No results found</p>
+>>>>>>> master
             
                         })
                     }
