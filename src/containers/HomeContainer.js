@@ -33,8 +33,10 @@ class HomeContainer extends React.Component {
 }*/
 
         componentDidMount() {
-            const feedVideos = buildFeedVideos(this.state.currentUser.feed);
+            const currentUser = JSON.parse(localStorage.getItem('currentUser')) || this.state.currentUser;
+            const feedVideos = buildFeedVideos(currentUser.feed);
             this.setState({
+                currentUser:currentUser,
                 feedVideos: feedVideos,
             })
             populateFeedVideos(this.state.feedVideos, this.state.currentUser.feed, this.state.show)

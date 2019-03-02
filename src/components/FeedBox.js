@@ -5,7 +5,7 @@ const FeedBox = props=> {
         <>
         {
             props.feed.map((e,i)=>{
-                return <p>{e}</p>
+                return <p key={i}>{e}</p>
             })
         }
         </>
