@@ -1,6 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router';
+import {buildFeedVideos, populateFeedVideos} from '../services/main';
+import Explorer from '../components/Explorer';
 
 
 class HomeContainer extends React.Component {
@@ -13,13 +14,8 @@ class HomeContainer extends React.Component {
                   name: 'default',
                   feed: ['music', 'feed', 'podcast'],
                 },
-                show:  0,
-                feedVideos: [
-                    {
-                        returned: false,
-                        dataSet: [],
-                    }
-                ],
+                show:  1,
+                feedVideos: {},
               }
             }
 
@@ -31,7 +27,20 @@ class HomeContainer extends React.Component {
 }*/
 
         componentDidMount() { 
-            /*return Promise.all(*/
+            const feedVideos = buildFeedVideos(this.state.currentUser.feed);
+            this.setState({
+                feedVideos: feedVideos,
+            })
+            populateFeedVideos(this.state.feedVideos, this.state.currentUser.feed, this.state.show)
+                .then( newFeedVideos => {
+             this.setState({
+                 _isLoaded: true,
+                 feedVideos: newFeedVideos,
+                });
+            // return exploreLoadMore(feedVideos.music)
+            });
+
+            /*return Promise.all(
                 this.state.currentUser.feed.map((e,i)=>{
              axios({
                 method: 'get',
@@ -58,11 +67,17 @@ class HomeContainer extends React.Component {
                feedVideos: this.state.feedVideos.concat({data: false}),
             })
           });        
-        })
+        })*/
     }
     
+    componentDidUpdate(prevProps, prevState) {
+        console.log("PrevState",prevState);
+        console.log("currentState", this.state);
+
+    }
             
 render(){
+    console.log("Toka",this.state)
       return <>
         <div className='container-fluid'>
             <div className='row'>
@@ -74,9 +89,11 @@ render(){
                         <h3>FeedBox</h3>
                     </div>
                     <div className="col-9">
-                    {(!this.state._isLoaded)? <h1>NO LOADING</h1>: 
-                         this.state.feedVideos.slice(1).map((e,i)=>{
-                        return e.returned === false ? <p key={i}>No videos found for feed</p> : <p key={i}>Explorer</p>
+                    { 
+                         this.state.currentUser.feed.map((e,i)=>{
+                             console.log("e", e)
+                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items}/>: <p>No results found</p>
+            
                         })
                     }
                     </div>
@@ -88,4 +105,6 @@ render(){
   }
 
   export default withRouter(HomeContainer);
+
+ /* e ? <Explorer key={i} results={e[this.state.currentUser.feed[i]]}/> : <p>No results found</p>*/
 

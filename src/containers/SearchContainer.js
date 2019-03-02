@@ -1,9 +1,8 @@
 import React from 'react';
 import './SearchContainer.css';
 import SearchResults from '../components/SearchResults';
-import axios from 'axios';
 import { withRouter } from 'react-router';
-import {search, parseVideo, formatPublish, buildSearchResultObject} from '../services/main';
+import {search, buildSearchResultObject} from '../services/main';
 
 
 const locationHashChanged =() => {

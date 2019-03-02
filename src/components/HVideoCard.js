@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import './H_VideoCard.css';
+import './HVideoCard.css';
 
 
 
@@ -11,7 +11,7 @@ const H_VideoCard = (props) => {
                         return <Fragment key={i}>
                             <div className="row">
                               <div className="col-5">
-                                <img src={e.thumbnail} alt={e.title} data-id={e.videoId} onClick={props.click}/>
+                                <img src={e.thumbnail} alt={e.title} data-id={e.videoId} onClick={props.clicks}/>
                                 </div>
                                 <div className="col-7">
                                   <h3 data-id={e.videoId} onClick={props.click}>{e.videoTitle}</h3>
