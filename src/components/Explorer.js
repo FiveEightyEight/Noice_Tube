@@ -21,4 +21,4 @@ const Explorer = ( props ) => {
     )
 }
 
-export default withRouter(Explorer);
+export default Explorer;
