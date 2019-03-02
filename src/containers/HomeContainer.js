@@ -92,7 +92,7 @@ render(){
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
                              console.log("e", e)
-                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items}/>: <p>No results found</p>
+                            return  this.state.feedVideos[e] ? <Explorer key={e} results={this.state.feedVideos[e].items}/>: <p key={i}>No results found</p>
             
                         })
                     }

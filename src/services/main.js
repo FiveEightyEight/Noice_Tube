@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import axios from 'axios';
 import API_KEY from './API_KEY';
+import React from 'react';
 
 
 const search = (query, count = 10, page = '') => {
@@ -143,6 +144,59 @@ const exploreFeed = (arr, count = 10) => {
         })
 }
 
+// ----> Description -------> ---> --> -> > 
+const callAPI = (url, params) => {
+    return axios({
+        method: 'get',
+        url,
+        params,
+    })
+}
+
+const updateDescription = (id) => {
+    const params = {
+        part: 'id,snippet,statistics',
+        key: API_KEY,
+        id, // id param
+    }
+    return callAPI('https://www.googleapis.com/youtube/v3/videos', params)
+}
+
+const getVideoDescription = (id) => {
+    return updateDescription(id)
+        .then(response => {
+            const info = {
+                title: response.data.items[0].snippet.title,
+                description: response.data.items[0].snippet.description,
+                views: response.data.items[0].statistics.viewCount,
+                channel: response.data.items[0].snippet.channelTitle,
+            }
+            // console.log(info)
+            return info;
+        })
+        .catch(err => {
+            return err;
+        })
+}
+
+
+const capitalize = (str) => {
+    if(typeof str !== 'string') return str;
+    return str[0].toUpperCase().concat(str.slice(1));
+};
+
+const formatDescription = (description) => {
+    // if(typeof str !== 'string') return description;
+    const array = description.split('\n')
+    return descriptionHelper(array);
+};
+
+const descriptionHelper = (arr) => {
+    if(arr.length === 0){
+        return;
+    }
+    return [<p key={arr.length - 1}>{arr[0]}</p>].concat(descriptionHelper(arr.slice(1)));
+};
 
 const formatPublish = (publishedAt) => {
     // publishedAt needs to be a string
@@ -153,11 +207,35 @@ const formatPublish = (publishedAt) => {
     return moment(published).fromNow()
 }
 
+const numberComma = (string) => {
+    const str = string;
+    let newString = '';
+    for (let i = 0; i < str.length; i ++) {
+        if (i % 3 === 0 && i !== 0) {
+            newString = ',' + newString;    
+        }
+        const char = str[str.length - i - 1]
+        newString = char + newString;
+    }
+    return newString;
+};
+
+const removeArrayElement = (arr, index) => {
+    if(typeof index !== 'number') return arr;
+    const newArray = [...arr];
+    return newArray.slice(0, index).concat(newArray.slice(index + 1));
+};
+
 export {
+    capitalize,
     formatPublish,
+    formatDescription,
+    numberComma,
+    removeArrayElement,
     search,
     multiSearch,
     getPromiseAllData,
+    getVideoDescription,
     buildSearchResult,
     buildSearchResultObject,
     buildFeedVideos,
