@@ -92,7 +92,7 @@ const exploreLoadMore = (queryObject) => {
     const newQueryObj = {...queryObject}
     return search(queryObject.query, 4, queryObject.nextPageToken)
     .then(response => {
-        console.log(response)
+
         return response.data
     })
     .then(data => {
