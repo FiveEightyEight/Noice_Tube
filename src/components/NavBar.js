@@ -12,7 +12,7 @@ const NavBar = props => {
         <Link  className='navLink' to='/'>Home</Link>
         </div>
         <div className='col'>
-        <Link  className='navLink'to='/feededitor'>Feed Editor</Link>
+        <Link  className='navLink .text-wrap'to='/feededitor'>Feed Editor</Link>
         </div>
         <div className='col'>
         <Link className='navLink' to='/user'>Users</Link>
