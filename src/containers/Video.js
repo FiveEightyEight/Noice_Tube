@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { getVideoDescription, numberComma } from '../services/main';
+import { getVideoDescription, numberComma, formatDescription } from '../services/main';
 import './Video.css';
 
 const VideoPlayer = ({ id }) => {
@@ -21,7 +20,7 @@ class Video extends Component {
             videoID: 'MmOpzbBsr8E',
             videoInfo: {
                 title: '',
-                views: 0,
+                views: '',
                 description: '',
                 channel: '',
                 // publishedOn: 0000,
@@ -46,7 +45,6 @@ class Video extends Component {
         return (
             <div className='mt-5 container'>
                 <div className='row'>
-
                     <div className='mx-auto align-self-center'>
                         <VideoPlayer value={'string'} id={this.state.videoID} />
                     </div>
@@ -61,9 +59,9 @@ class Video extends Component {
                         <p>
                             <span className='h6'>{this.state.videoInfo.channel}</span>
                         </p>
-                        <p>
-                            <span>{this.state.videoInfo.description}</span>
-                        </p>
+                        <div>
+                            <span>{formatDescription(this.state.videoInfo.description)}</span>
+                        </div>
                     </div>
                 </div>
             </div>

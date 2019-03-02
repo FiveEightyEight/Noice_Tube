@@ -167,10 +167,11 @@ const getVideoDescription = (id) => {
         .then(response => {
             const info = {
                 title: response.data.items[0].snippet.title,
-                description: response.dataitems[0].snippet.description,
+                description: response.data.items[0].snippet.description,
                 views: response.data.items[0].statistics.viewCount,
                 channel: response.data.items[0].snippet.channelTitle,
             }
+            // console.log(info)
             return info;
         })
         .catch(err => {
