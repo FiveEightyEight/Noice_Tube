@@ -6,7 +6,6 @@ class Comments extends Component {
     constructor(props){
         super(props)
         this.state = {
-            
                 comments: [
                   {comment:'lol'},
                 ]
@@ -14,13 +13,14 @@ class Comments extends Component {
         }
     }
                 // key:'AIzaSyB-7-OJ42-7dRfTDbCgN5Kr7jNZXJwWKYE'
-    componentDidMount(){
+    componentDidMount = () => {
+        const id = this.props.videoID
         axios({
             method: 'get',
             url: 'https://www.googleapis.com/youtube/v3/commentThreads',
             params: {
               part: 'snippet,replies',
-              videoId: 'jbnddQ9l0IA',
+              videoId: id,
               key: 'AIzaSyB-7-OJ42-7dRfTDbCgN5Kr7jNZXJwWKYE',
               textFormat:'plainText'
             }
