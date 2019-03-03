@@ -4,7 +4,8 @@ import { withRouter } from 'react-router';
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
 import FeedBox from '../components/FeedBox';
-import Greeting from '../components/Greeting'
+import Greeting from '../components/Greeting';
+import '../components/Greeting.css';
 // import VVideoCard from '../components/VVideoCard'
 
 
@@ -22,7 +23,7 @@ class HomeContainer extends React.Component {
                   name: 'default',
                   feed: ['music'], //local storage || ['music']
                 },
-                show:  1,
+                show:  4,
                 feedVideos: {},
               }
             }
@@ -71,7 +72,7 @@ class HomeContainer extends React.Component {
 render(){
       return <>
         <div className='container-fluid'>
-            <div className='row  mx-auto' style={{backgroundColor:'#6B717E'}}>
+            <div className='row mx-auto jumbotron' style={{backgroundColor:'#6B717E'}}>
                 <Greeting name = {this.state.currentUser.name}/>
             </div>
             <hr/>

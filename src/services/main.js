@@ -173,7 +173,6 @@ const updateDescription = (id) => {
 const getVideoDescription = (id) => {
     return updateDescription(id)
         .then(response => {
-            console.log(response)
             let description = {};
             let commentResponse = {};
             for (let i = 0; i < response.length; i++) {

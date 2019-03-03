@@ -54,7 +54,6 @@ class Video extends Component {
         const { video_id } = this.props.match.params;
         getVideoDescription(video_id)
             .then(data => {
-                console.log(data)
                 this.setState({
                     videoID: video_id,
                     videoInfo: data.info,
@@ -77,9 +76,7 @@ class Video extends Component {
                 console.log('Mount Error: ', err)
             })
     }
-    componentDidUpdate() {
-        console.log(this.state, 'state in video')
-    }
+
     render() {
         const spin = (
             <div className='d-flex justify-content-center'>
