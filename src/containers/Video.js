@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { getVideoDescription, numberComma, formatDescription, getChannelInfo } from '../services/main';
+import { getVideoDescription, numberComma, formatDescription, getChannelInfo, ratingFormat } from '../services/main';
 import { Spinner } from 'reactstrap';
 import './Video.css';
 import DescriptionText from '../components/descriptionText';
 import Comments from './Comments'
+import { IoMdThumbsUp, IoMdThumbsDown, IoMdShareAlt, } from "react-icons/io";
+import { MdMoreHoriz, MdPlaylistAdd, MdSort } from "react-icons/md"
 
 const VideoPlayer = ({ id }) => {
     const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
@@ -102,15 +104,36 @@ class Video extends Component {
                         <p className='col-12'>
                             <span className='h4'><strong>{this.state.videoInfo.title}</strong></span>
                         </p>
-                        <p className='col-12 my-0'>
-                            <span className='h6 text-muted'>{numberComma(this.state.videoInfo.views)} views</span>
-                        </p>
+                        <div className='col-12 my-0 row'>
+                            <span className='mt-3 h6 text-muted col align-self-start'>{numberComma(this.state.videoInfo.views)} views</span>
+                            <div className='my-0 col align-self-end row '>
+                                <p className='ml-auto text-muted h6'>
+                                    <IoMdThumbsUp />
+                                    <span className='mx-2' style={{ fontSize: '12px' }}>
+                                        <strong>{ratingFormat(this.state.videoInfo.likeCount)}</strong>
+                                    </span>
+                                    <IoMdThumbsDown />
+                                    <span className='mx-2' style={{ fontSize: '12px' }}>
+                                        <strong>{ratingFormat(this.state.videoInfo.dislikeCount)}</strong>
+                                    </span>
+                                    <IoMdShareAlt />
+                                    <span className='mx-2' style={{ fontSize: '12px' }}>
+                                        <strong>SHARE</strong>
+                                    </span>
+                                    <MdPlaylistAdd />
+                                    <span className='mx-2' style={{ fontSize: '12px' }}>
+                                        <strong>SAVE</strong>
+                                    </span>
+                                    <MdMoreHoriz />
+                                </p>
+                            </div>
+                        </div>
                         <div className='col-12 mt-0'>
-                            <hr />
+                            <hr className='mt-0' />
                         </div>
                         <div className='col-12 row'>
-                            <div className='col-auto pr-5 mr-2' style={{height: '44px', width: '44px'}}>
-                                {!this.state.videoInfo.channelImg ? defaultChannelImg : <img className='rounded-circle' alt={this.state.videoInfo.channel} src={this.state.videoInfo.channelImg} style={{height: '44px', width: '44px'}}/>}
+                            <div className='col-auto pr-5 mr-2' style={{ height: '44px', width: '44px' }}>
+                                {!this.state.videoInfo.channelImg ? defaultChannelImg : <img className='rounded-circle' alt={this.state.videoInfo.channel} src={this.state.videoInfo.channelImg} style={{ height: '44px', width: '44px' }} />}
                             </div>
                             <div className='col-11 row'>
                                 <span className='h6 col-12 mb-0'><strong>{this.state.videoInfo.channel}</strong></span>
@@ -121,13 +144,22 @@ class Video extends Component {
 
 
                         <div className='col-12'>
-                            
+
                         </div>
 
                         <div className='col-12'>
                             <hr />
                         </div>
 
+                    </div>
+                </div>
+                <div className='col-12 row'>
+                    <span className='mt-1 col-auto'>{numberComma(this.state.videoInfo.commentCount)} Comments</span>
+                    <div>
+                        <MdSort />
+                        <span className='mx-2' style={{ fontSize: '12px' }}>
+                            <strong>SORT BY</strong>
+                        </span>
                     </div>
                 </div>
                 <Comments comments={this.state.comments}></Comments>

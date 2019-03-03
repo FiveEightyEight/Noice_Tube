@@ -204,13 +204,11 @@ const getVideoDescription = (id) => {
                 }
                 comments.push(newObj)
             })
-
             return {
                 info,
                 comments,
             }
         })
-
         .catch(err => {
             return err;
         })
@@ -242,7 +240,7 @@ const descriptionHelper = (arr) => {
     if (arr.length === 0) {
         return;
     }
-    return [<p key={arr.length - 1}>{arr[0]}</p>].concat(descriptionHelper(arr.slice(1)));
+    return [<p className='my-1' key={arr.length - 1}>{arr[0]}</p>].concat(descriptionHelper(arr.slice(1)));
 };
 
 const formatPublish = (publishedAt) => {
@@ -273,6 +271,27 @@ const removeArrayElement = (arr, index) => {
     return newArray.slice(0, index).concat(newArray.slice(index + 1));
 };
 
+const ratingFormat = (string) => {
+    if (string.length < 4) {
+        return string;
+    }
+    let str = string.slice(0, -3);
+    if (str.length < 4) {
+        return str + 'K';
+    }
+    if (str.length < 7) {
+        str = str.slice(0, -3);
+        return str + 'M'
+    }
+    str = str.slice(0, -6);
+
+    if (str.length < 4) {
+        return str + 'B';
+    }
+    str = str.slice(0, -3)
+    return str + 't';
+}
+
 export {
     capitalize,
     formatPublish,
@@ -288,6 +307,7 @@ export {
     buildSearchResultObject,
     buildFeedVideos,
     populateFeedVideos,
+    ratingFormat,
     exploreFeed,
     exploreLoadMore,
     parseVideo
