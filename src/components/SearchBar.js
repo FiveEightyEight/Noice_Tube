@@ -30,12 +30,12 @@ class SearchBar extends React.Component {
     render(){
         return (
             <>
-            <form className="form-inline" >
+            <div className="input-group" >
                 <input id='hiddenInput' className="form-control mr-sm-2" type="text" placeholder="Your Favorite Video Is One Click Away" aria-label="Search"  onChange={this.handleInputChange} onKeyDown={this.handleSubmit}/>
-                <div className="input-group-append">
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.handleClick} value={this.state.input}>Search</button>
+                <div className="input-group-append pb-10">
+                    <button className="my-2 submit" type="submit" onClick={this.handleClick} value={this.state.input}>Search</button>
                 </div>
-            </form>
+            </div>
             </>
         )
     }

@@ -2,7 +2,6 @@ import React from 'react';
 import './VVideoCard.css';
 
 const VVideoCard = props => {
-    console.log('VVideoCard props',props)
     // const { img, title, channel, published } = props; 
     return ( <div className = 'col-3'>
     <div className = 'container'>

@@ -6,6 +6,7 @@ import Video from './containers/Video'
 import FeedList from './containers/FeedList'
 import HomeContainer from './containers/HomeContainer';
 import NavBar from './components/NavBar'
+import './App.css'
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
     return (
       <>
       <NavBar></NavBar>
-        <div>
+        <div className='container-fluid'>
           <Switch>
             <Route exact path='/'><HomeContainer/></Route>
             <Route exact path='/user'component={User} />
