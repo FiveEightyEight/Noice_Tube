@@ -1,18 +1,19 @@
 import React from 'react';
-import {Route,Link,Switch} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import SearchBar from './SearchBar'
 import './NavBar.css'
 
 const NavBar = props => {
 
     return(
-    <nav>
+        <div className='container-fluid'>
+     <nav >
         <div className='row navContainer'>
         <div className='col'>
         <Link  className='navLink' to='/'>Home</Link>
         </div>
         <div className='col'>
-        <Link  className='navLink'to='/feededitor'>Feed Editor</Link>
+        <Link  className='navLink .text-wrap'to='/feededitor'>Feed Editor</Link>
         </div>
         <div className='col'>
         <Link className='navLink' to='/user'>Users</Link>
@@ -25,6 +26,7 @@ const NavBar = props => {
         
         
     </nav>
+    </div>
     )
 }
 

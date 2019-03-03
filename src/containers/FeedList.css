@@ -1,10 +1,10 @@
 .feedListItem{
-    border: 1px solid gray;
     margin-bottom: 10px;
     padding: 10px;
     cursor: pointer;
     width: 50%;
 }
+
 .close{ 
     justify-content: right;
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { getVideoDescription, numberComma, formatDescription, getChannelInfo } from '../services/main';
+import { Spinner } from 'reactstrap';
 import './Video.css';
 import DescriptionText from '../components/descriptionText';
+import Comments from './Comments'
 
 const VideoPlayer = ({ id }) => {
     const link = `https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`;
@@ -18,69 +20,26 @@ class Video extends Component {
         super(props);
 
         this.state = {
-            videoID: 'MmOpzbBsr8E',
+            videoID: null,
             videoInfo: {
                 title: '',
-                views: 0,
+                views: '',
                 description: '',
                 channel: '',
+                channelId: '',
+                channelImg: null,
+                commentCount: '',
+                dislikeCount: '',
+                likeCount: '',
+                publishedAt: '',
                 // publishedOn: 0000,
-                // comments: [{}, {}],
             },
             expand: false,
+            comments: [],
         }
     }
 
-    callAPI = (url, params) => {
-        return axios({
-            method: 'get',
-            url,
-            params,
-        })
-    }
 
-    getVideoDescription = (id) => {
-        const params = {
-            part: 'id,snippet,statistics',
-            key: 'AIzaSyBcCsdu9K95VsD2umeUKsC-Dj2F-GFgs08',
-            id, // id param
-        }
-        return this.callAPI('https://www.googleapis.com/youtube/v3/videos', params)
-    }
-
-    updateDescription = (id) => {
-        this.getVideoDescription(this.state.videoID)
-            .then(response => {
-                return response.data
-            })
-            .then(data => {
-                const info = {
-                    title: data.items[0].snippet.title,
-                    description: data.items[0].snippet.description,
-                    views: data.items[0].statistics.viewCount,
-                    channel: data.items[0].snippet.channelTitle,
-                }
-                return info;
-            })
-            .then(info => {
-                return this.setState({
-                    videoInfo: info,
-                });
-            })
-    }
-
-    numberComma = (string) => {
-        const str = string;
-        let newString = '';
-        for (let i = 0; i < str.length; i ++) {
-            if (i % 3 === 0 && i !== 0) {
-                newString = ',' + newString;    
-            }
-            const char = str[str.length - i - 1]
-            newString = char + newString;
-        }
-        return newString;
-    }
 
     handleDescription = e => {
         const toggle = !this.state.expand;
@@ -91,35 +50,87 @@ class Video extends Component {
 
     componentDidMount() {
         const { video_id } = this.props.match.params;
-        this.setState({
-            videoID: video_id,
-        }, _ => {
-            this.updateDescription(this.state.videoID);
-        })
+        getVideoDescription(video_id)
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    videoID: video_id,
+                    videoInfo: data.info,
+                    comments: data.comments,
+                })
+                return getChannelInfo(data.info.channelId)
+            })
+            .then(response => {
+                return response.data
+            })
+            .then(channelData => {
+                const img = channelData.items[0].snippet.thumbnails.default.url;
+                const newVideoInfo = { ...this.state.videoInfo };
+                newVideoInfo['channelImg'] = img;
+                this.setState({
+                    videoInfo: newVideoInfo,
+                })
+            })
+            .catch(err => {
+                console.log('Mount Error: ', err)
+            })
     }
-
+    componentDidUpdate() {
+        console.log(this.state, 'state in video')
+    }
     render() {
+        const spin = (
+            <div className='d-flex justify-content-center'>
+                <Spinner style={{ width: '3rem', height: '3rem' }} />
+            </div>
+        )
+
+        const standardDescription = (
+            <span className='col-12'>{formatDescription(this.state.videoInfo.description)}</span>
+        )
+
+        const defaultChannelImg = (
+            <Spinner style={{ width: '1rem', height: '1rem' }} />
+        )
         return (
             <div className='mt-5 container'>
                 <div className='row'>
-
                     <div className='mx-auto align-self-center'>
-                        <VideoPlayer value={'string'} id={this.state.videoID} />
+                        {!this.state.videoID ? spin : <VideoPlayer value={'string'} id={this.state.videoID} />}
                     </div>
                     <div className='mt-3 mx-auto align-self-center row'>
                         <p className='col-12'>
-                            <span className='h2'>{this.state.videoInfo.title}</span>
+                            <span className='h4'><strong>{this.state.videoInfo.title}</strong></span>
                         </p>
-                        <p className='col-12'>
-                            <span className='h6 text-muted'>{this.numberComma(this.state.videoInfo.views)} views</span>
+                        <p className='col-12 my-0'>
+                            <span className='h6 text-muted'>{numberComma(this.state.videoInfo.views)} views</span>
                         </p>
-                        <hr />
-                        <p className='col-12'>
-                            <span className='h6'>{this.state.videoInfo.channel}</span>
-                        </p>
-                        <DescriptionText description={this.state.videoInfo.description} expand={this.state.expand} handleDescription={this.handleDescription}/>
+                        <div className='col-12 mt-0'>
+                            <hr />
+                        </div>
+                        <div className='col-12 row'>
+                            <div className='col-auto pr-5 mr-2' style={{height: '44px', width: '44px'}}>
+                                {!this.state.videoInfo.channelImg ? defaultChannelImg : <img className='rounded-circle' alt={this.state.videoInfo.channel} src={this.state.videoInfo.channelImg} style={{height: '44px', width: '44px'}}/>}
+                            </div>
+                            <div className='col-11 row'>
+                                <span className='h6 col-12 mb-0'><strong>{this.state.videoInfo.channel}</strong></span>
+                                <span className='h6 col-12 mt-0'>{this.state.videoInfo.publishedAt}</span>
+                                {this.state.videoInfo.description.length < 250 ? standardDescription : <DescriptionText description={formatDescription(this.state.videoInfo.description)} expand={this.state.expand} handleDescription={this.handleDescription} />}
+                            </div>
+                        </div>
+
+
+                        <div className='col-12'>
+                            
+                        </div>
+
+                        <div className='col-12'>
+                            <hr />
+                        </div>
+
                     </div>
                 </div>
+                <Comments comments={this.state.comments}></Comments>
             </div>
         )
     }

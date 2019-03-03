@@ -1,8 +1,9 @@
 @font-face{
     font-family: 'Roboto';
     font-weight: 400;
-    src: url('https://fonts.googleapis.com/css?family=Roboto')
+    src: url('https://fonts.googleapis.com/css?Roboto:400,500,700') format('svg');
 }
+
 
 h3, span, p {
     font-family: 'Roboto', sans-serif;

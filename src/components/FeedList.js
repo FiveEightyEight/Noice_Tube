@@ -1,21 +1,23 @@
 import React from 'react'
+import '../containers/FeedList.css'
 const FeedList = (props) =>{
     return (
-        <div className='col col-6'>
+        <div className='container col-7 left'>
         <h1>Explore Feed List </h1>
+        <ul className="list-group">
     {
     props.feed.feed.map((e,i)=>{
         return (
-        <div key={i}>
-        <div   className='feedListItem'>
-        <p  style={{'display':'inline','marginRight':'75%'}}   id={i} >{e}</p>
-        <span  id={i} onClick={props.handleFeedRemove} className="badge badge-dark">X</span>
-        
+        <div key={i} id='list'>
+        <div className='feedListItem row col-3'>
+        <p style={{'display':'inline','marginRight':'75%'}} id={i} >{e}</p>
+        <span  data-index={i} onClick={props.handleFeedRemove} className="badge badge-dark" id='removelink'>Remove Feed</span>
         </div>
         </div>
         )
     })
     }
+    </ul>
     </div>
     )
 

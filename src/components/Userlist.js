@@ -1,33 +1,33 @@
 import React from 'react';
+import './Userlist.css'
+const Userlist = props => {
 
-const Userlist = props => { 
-    if (props.state.userList === 'undefined'){
+    if (props.state.userList === 'undefined') {
         return;
     }
     else {
-        console.log(props, 'is props in USERLIST')
-        console.log(props.state.userList, 'is list')
-        const userList = props.state.userList    
-    return(
+
+        const userList = props.state.userList
+        return (
             <>
-                <div>  
+                <div className='container col-7 left'>
                     <ul className="list-group">
-                        {userList.map((currUser,i) => {
+                        {userList.map((currUser, i) => {
                             return (
-                            <div key = {i} >
-                                <p  style={{'display':'inline','marginRight':'75%'}}   id={i} >{currUser.name}</p>
-                                <span  id={i} onClick={props.removeUser} className="badge badge-dark">Remove User</span>
+                                <div className="user row justify-content-between p-3" style={props.state.currentUser.name === currUser.name ? { backgroundColor: '#102542', 'border': '1px solid #f6f930' } : { backgroundColor: '#fcfcfc', 'border': '1px solid #102542' }} key={i} id='list' >
+                                    <span className='col-7' style={props.state.currentUser.name === currUser.name ? {'color': '#f6f930' }: {'color': '#000000'}} id={i} onClick={props.handleUserClick} >{currUser.name}</span>
+                                    <button className="badge badge-dark col-3 removeButton user" data-index={i} onClick={props.removeUser} id='removelink' style={props.state.currentUser.name === currUser.name ? { 'border': '1px solid #f6f930' } : { 'border': '1px solid #102542' }}>Remove User</button>
                                 </div>
                             )
-                                })}
+                        })}
                     </ul>
                 </div>
             </>
-            )
-        }
-   
+        )
     }
-    
-  
+
+}
+
+
 
 export default Userlist;

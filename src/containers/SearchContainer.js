@@ -1,8 +1,8 @@
 import React from 'react';
 import './SearchContainer.css';
 import SearchResults from '../components/SearchResults';
-import axios from 'axios';
 import { withRouter } from 'react-router';
+import {search, buildSearchResultObject} from '../services/main';
 
 
 const locationHashChanged =() => {
@@ -22,6 +22,8 @@ const dealWithSpaces = (input) => {
     }
     return input;
 }
+
+const query = window.location.hash.slice(9)
 
 class SearchContainer extends React.Component {
         constructor(props) {
@@ -45,9 +47,24 @@ class SearchContainer extends React.Component {
            /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);*/
             }
         
+        componentDidMount() {
+            search(dealWithSpaces(query),this.state.show)
+            .then((data)=>{
+                return buildSearchResultObject(data, query)
+            })
+            .then((obj)=>{
+                this.setState({
+                    data: true,
+                    dataset: this.state.dataSet.push(obj)
+                }); 
+            })
+            .catch((error)=>{
+                return error
+            })
 
-        componentDidMount() {   
-            axios({
+        }
+
+           /* axios({
                 method: 'get',
                 url: 'https://www.googleapis.com/youtube/v3/search',
                 params: {
@@ -62,6 +79,7 @@ class SearchContainer extends React.Component {
                 }
               })
               .then((response)=>{
+                  console.log(response)
                   this.setState({
                       data: true,
                       dataset: this.state.dataSet.push(response) });
@@ -71,9 +89,10 @@ class SearchContainer extends React.Component {
                       data: false,
                   })
               });        
-            }
+            }*/
 
 render(){
+     console.log(this.state)
       return <>
         <div className='container-fluid'>
         <hr></hr>
