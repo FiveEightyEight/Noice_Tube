@@ -58,7 +58,7 @@ class User extends React.Component {
 
     removeUser = (e) =>{
         let userList = this.state.userList
-        let removeUser = parseInt(e.target.id);
+        let removeUser = parseInt(e.target.attributes.getNamedItem('data-index').value);
         let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
         localStorage.setItem('userList', JSON.stringify(remove))
          this.setState({userList: remove})
@@ -91,7 +91,7 @@ render(){
                         </div>
                             <div className ='col-6'>
                         <h3>User List</h3>
-                            <div><UserList state = {this.state}  handleUserClick = {this.handleUserClick} removeUser ={this.removeUser}/> </div>
+                            <div id='containerList col-6'><UserList state = {this.state}  handleUserClick = {this.handleUserClick} removeUser ={this.removeUser}/> </div>
                         </div>
                     </div>
                 </div>
