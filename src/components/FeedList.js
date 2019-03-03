@@ -1,4 +1,5 @@
 import React from 'react'
+import '../containers/FeedList.css'
 const FeedList = (props) =>{
     return (
         <div className='container col-7 left'>
@@ -8,7 +9,7 @@ const FeedList = (props) =>{
     props.feed.feed.map((e,i)=>{
         return (
         <div key={i} id='list'>
-        <div className='feedListItem user row col-3'>
+        <div className='feedListItem row col-3'>
         <p style={{'display':'inline','marginRight':'75%'}} id={i} >{e}</p>
         <span  data-index={i} onClick={props.handleFeedRemove} className="badge badge-dark" id='removelink'>Remove Feed</span>
         </div>

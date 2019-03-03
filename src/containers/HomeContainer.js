@@ -1,4 +1,5 @@
 import React from 'react';
+import {Spinner} from 'reactstrap';
 import { withRouter } from 'react-router';
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
@@ -19,7 +20,7 @@ class HomeContainer extends React.Component {
                 _isLoaded: false,
                 currentUser: {
                   name: 'default',
-                  feed: ['music', 'feed', 'podcast', 'chef' ], //local storage || ['music']
+                  feed: ['music'], //local storage || ['music']
                 },
                 show:  1,
                 feedVideos: {},
@@ -35,6 +36,9 @@ class HomeContainer extends React.Component {
 
         componentDidMount() {
             const currentUser = JSON.parse(localStorage.getItem('currentUser')) || this.state.currentUser;
+            if(currentUser.feed.length === 0){
+                currentUser.feed = this.state.currentUser.feed
+            }
             const feedVideos = buildFeedVideos(currentUser.feed);
             this.setState({
                 currentUser: currentUser,
@@ -80,7 +84,8 @@ render(){
                     <div className='container'>
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
-                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p key={i}>No results found</p>
+                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>:<div key={i} className='row'> <Spinner style={{ width: '3rem', height: '3rem' }} /> </div>
+
                         })
                     } 
                     </div>
