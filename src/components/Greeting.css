@@ -5,10 +5,10 @@
 }
 .jumbotron {
     background:
-   linear-gradient(
+   /*linear-gradient(
         rgba(16, 37, 66, 0.45), 
         rgba(16, 37, 66, 0.45)
-      ),
+      ),*/
     url('https://cdn-images-1.medium.com/max/2600/1*PUb4Hkk--uJWCmIsrgw7rg.jpeg');
     height: 100%;
     margin-bottom: 20px;
@@ -18,5 +18,5 @@
 .name {
     text-align: center;
     color: white;
-    font-family: 'Roboto Condensed', sans-serif
+    font-family: 'Roboto Condensed';
 }

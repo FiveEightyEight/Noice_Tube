@@ -23,7 +23,7 @@ class HomeContainer extends React.Component {
                   name: 'default',
                   feed: ['music'], //local storage || ['music']
                 },
-                show:  1,
+                show:  8,
                 feedVideos: {},
               }
             }
@@ -57,8 +57,11 @@ class HomeContainer extends React.Component {
 
     handleLoadMore = (e) => {
         const queryName = e.target.attributes.getNamedItem('data-id').value
-        console.log("Q",queryName)
-        exploreLoadMore(this.state.feedVideos[queryName])
+        console.log("Q",this.state.feedVideos[queryName].length)
+        if(this.state.feedVideos[queryName].items.length >= 12){
+            return;
+        }
+       else{ exploreLoadMore(this.state.feedVideos[queryName])
         .then((newFeedVideos)=>{
             const currentFeedObject = Object.assign(this.state.feedVideos, newFeedVideos)
             console.log("Current",currentFeedObject);
@@ -67,7 +70,9 @@ class HomeContainer extends React.Component {
                  feedVideos: currentFeedObject,
             })
         })
+    }
         }
+
             
 render(){
       return <>

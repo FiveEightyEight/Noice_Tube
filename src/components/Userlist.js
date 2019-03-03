@@ -10,7 +10,7 @@ const Userlist = props => {
         const userList = props.state.userList
         return (
             <>
-                <div className='container col-7 left' id="list">
+                <div className='container col-7 left'>
                     <ul className="list-group">
                         {userList.map((currUser, i) => {
                             return (

@@ -85,13 +85,14 @@ class FeedEditor extends React.Component {
 render(){
       return( 
       <>
-       <div className ='conatiner'>
+       <div className ='conatiner ccontainHeight'>
       <div className='row'>
-      <div className='col col-6'>
-      <h1>Create a new Explore Feed </h1>
+      <div className="col-2"></div>
+      <div className='col col-4'>
+      <h3>Add A New Feed To Your Explorer </h3>
       <form onSubmit={this.handleFeedAdd} className='form-inline' >
       <input type='text'className='form-control mr-sm-2'  onChange={this.updateInputValue}></input>
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Add Feed</button>
+      <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">Add Feed</button>
       </form>
       </div>
       <div className ='col-6'>

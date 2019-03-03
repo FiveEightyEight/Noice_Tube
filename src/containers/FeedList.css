@@ -1,8 +1,7 @@
 .feedListItem{
-    margin-bottom: 10px;
-    padding: 10px;
     cursor: pointer;
-    width: 50%;
+    width: 25%;
+    font-family: 'Roboto Condensed'
 }
 
 .close{ 
@@ -11,4 +10,15 @@
 
 p {
     font-size: 17px;
+    font-family: 'Roboto Condensed'
+}
+
+.divStyle {
+    background-color: #FFF;
+    border: 1px solid #102542;
+    font-family: 'Roboto Condensed'
+}
+
+.marg {
+    float: left;
 }
