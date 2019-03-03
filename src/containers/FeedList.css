@@ -1,8 +1,6 @@
 .feedListItem{
-    margin-bottom: 10px;
-    padding: 10px;
     cursor: pointer;
-    width: 50%;
+    width: 25%;
 }
 
 .close{ 
@@ -11,4 +9,13 @@
 
 p {
     font-size: 17px;
+}
+
+.divStyle {
+    background-color: #FFF;
+    border: 1px solid #102542;
+}
+
+.marg {
+    float: left;
 }

@@ -93,7 +93,7 @@ class User extends React.Component {
                         <h3>Create A New User</h3>
                         <form className="form-inline" onSubmit={this.handleSubmit}>
                             <input className="form-control mr-sm-2" type="search" placeholder="Create User" aria-label="Search" value={this.state.inputValue} onChange={this.updateInputValue} />
-                            <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">Add</button>
+                            <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">Add User</button>
                         </form>
                     </div>
                     <div className='col-6'>
