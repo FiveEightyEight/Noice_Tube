@@ -106,7 +106,30 @@ const exploreLoadMore = (queryObject) => {
         .catch(err => {
             return err;
         })
+};
 
+const searchLoadMore = (query, dataSet, pageToken) => {
+    const newDataSet = [...dataSet];
+    return search(query, 10, pageToken)
+        .then(response => {
+            return response.data
+        })
+        .then(data => {
+            for (let i = 0; i < data.items.length; i++) {
+                const currentVideo = data.items[i]
+                newDataSet[0].items.push(parseVideo(currentVideo));
+            }
+            let previousPageToken = pageToken;
+            let newPageToken = data.nextPageToken;
+            return {
+                dataSet: newDataSet,
+                previousPageToken,
+                newPageToken,
+            }
+        })
+        .catch(err => {
+            return err;
+        })
 };
 
 const parseVideo = (resultObj, simple = true) => {
@@ -309,5 +332,6 @@ export {
     ratingFormat,
     exploreFeed,
     exploreLoadMore,
+    searchLoadMore,
     parseVideo
 }
