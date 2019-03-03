@@ -31,7 +31,7 @@ class SearchBar extends React.Component {
         return (
             <>
             <form className="form-inline" >
-                <input className="form-control mr-sm-2" type="search" placeholder="Search Here" aria-label="Search" onChange={this.handleInputChange} onKeyDown={this.handleSubmit}/>
+                <input className="form-control mr-sm" type="search" placeholder="Search Here" aria-label="Search" onChange={this.handleInputChange} onKeyDown={this.handleSubmit}/>
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.handleClick} value={this.state.input}>Search</button>
                 </form>
             </>
