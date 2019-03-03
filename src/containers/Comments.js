@@ -4,14 +4,13 @@ const Comments = props => {
 
     return (
         <>
-            <div className='container'>
                 {
                     props.comments.map((e, i) => {
                         return (
                             <div key={i}>
                                 <div className='row'>
-                                    <div className='col'>
-                                    </div>
+                                    {/* <div className='col'>
+                                    </div> */}
                                     <div className='col-4'>
                                         <p className='username'>{e.username}</p>
                                         <img className='rounded-circle' alt={e.username} src={e.profilePic} />
@@ -25,7 +24,6 @@ const Comments = props => {
                         )
                     })
                 }
-            </div>
         </>
     )
 }
