@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import {buildFeedVideos, populateFeedVideos, exploreLoadMore} from '../services/main';
 import Explorer from '../components/Explorer';
+import FeedBox from '../components/FeedBox';
+import Greeting from '../components/Greeting'
 // import VVideoCard from '../components/VVideoCard'
 
 
@@ -17,7 +19,7 @@ class HomeContainer extends React.Component {
                 _isLoaded: false,
                 currentUser: {
                   name: 'default',
-                  feed: ['music', 'feed', 'podcast', ],
+                  feed: ['music', 'feed', 'podcast', 'chef' ], //local storage || ['music']
                 },
                 show:  1,
                 feedVideos: {},
@@ -31,9 +33,11 @@ class HomeContainer extends React.Component {
            /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);
 }*/
 
-        componentDidMount() { 
-            const feedVideos = buildFeedVideos(this.state.currentUser.feed);
+        componentDidMount() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser')) || this.state.currentUser;
+            const feedVideos = buildFeedVideos(currentUser.feed);
             this.setState({
+                currentUser:currentUser,
                 feedVideos: feedVideos,
             })
             populateFeedVideos(this.state.feedVideos, this.state.currentUser.feed, this.state.show)
@@ -79,10 +83,12 @@ class HomeContainer extends React.Component {
     }
 
     handleLoadMore = (e) => {
-        const queryName = e.target.attributes.getNamedItem('data-content').value
+        const queryName = e.target.attributes.getNamedItem('data-id').value
+        console.log("Q",queryName)
         exploreLoadMore(this.state.feedVideos[queryName])
         .then((newFeedVideos)=>{
             const currentFeedObject = Object.assign(this.state.feedVideos, newFeedVideos)
+            console.log("Current",currentFeedObject);
             this.setState({
                 _isLoaded: true,
                  feedVideos: currentFeedObject,
@@ -93,19 +99,20 @@ class HomeContainer extends React.Component {
 render(){
       return <>
         <div className='container-fluid'>
-            <div className='row'>
-                <h4>Hi User</h4>
+            <div className='row  mx-auto' style={{backgroundColor:'#6B717E'}}>
+                <Greeting name = {this.state.currentUser.name}/>
             </div>
             <hr/>
             <div className='row'>
-                    <div className="col-3">
+                    <div className="col-3" >
                         <h3>FeedBox</h3>
+                        <FeedBox feed={this.state.currentUser.feed} />
                     </div>
                     <div className="col-9">
                     <div className='container'>
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
-                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p>No results found</p>
+                            return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>: <p key={i}>No results found</p>
                         })
                     } 
                     </div>

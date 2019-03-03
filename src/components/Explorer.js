@@ -16,7 +16,7 @@ const Explorer = ( props ) => {
                         })
                 }
                 </div>
-                    <button className='btn btn-primary'>SHOW MORE</button>
+                    <button className='btn btn-primary' onClick={props.clickLoad} data-id={props.query}>SHOW MORE</button>
             </div>
     )
 }

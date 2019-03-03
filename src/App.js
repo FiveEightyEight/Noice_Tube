@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <>
       <NavBar></NavBar>
-        <div>
+        <div className='container-fluid'>
           <Switch>
             <Route exact path='/'><HomeContainer/></Route>
             <Route exact path='/user'component={User} />
