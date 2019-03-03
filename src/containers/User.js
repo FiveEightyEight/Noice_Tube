@@ -1,4 +1,3 @@
-
 import React from 'react'
 import UserList from '../components/Userlist'
 
@@ -8,10 +7,13 @@ class User extends React.Component {
 
         this.state = {
         inputValue: '',
-        userList: [],
+        userList: [{
+            name: "Default",
+            feed: ['music']
+                }],
         currentUser: {
-        name: "",
-        feed: []
+        name: "Default",
+        feed: ['music']
             },
         }
     }
@@ -61,7 +63,8 @@ class User extends React.Component {
         let removeUser = parseInt(e.target.attributes.getNamedItem('data-index').value);
         let remove = userList.slice(0, removeUser).concat(userList.slice(removeUser+1))
         localStorage.setItem('userList', JSON.stringify(remove))
-         this.setState({userList: remove})
+         this.setState({userList: remove,
+        currentUser: remove[remove.length - 1]})
     }
 
 updateInputValue = (e) => {
@@ -70,11 +73,8 @@ updateInputValue = (e) => {
 }
 handleUserClick = e => {
     let index = parseInt(e.target.id)
-    console.log(this.state.userList[index])
     localStorage.setItem('currentUser',JSON.stringify(this.state.userList[index]))
-    this.setState({currentUser:this.state.userList[index]},()=>{
-        console.log(this.state.currentUser, 'current user is now')
-    })
+    this.setState({currentUser:this.state.userList[index]})
 }
 
 
