@@ -86,13 +86,14 @@ class User extends React.Component {
 
     render() {
         return (<>
-            <div className='conatiner'>
+            <div className='conatiner ccontainHeight'>
                 <div className='row'>
-                    <div className='col-6'>
-                        <h3>Create a new User</h3>
+                    <div className="col-2"></div>
+                    <div className='col-4'>
+                        <h3>Create A New User</h3>
                         <form className="form-inline" onSubmit={this.handleSubmit}>
                             <input className="form-control mr-sm-2" type="search" placeholder="Create User" aria-label="Search" value={this.state.inputValue} onChange={this.updateInputValue} />
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button className="btn btn-outline-warning my-2 my-sm-0" type="submit">Add</button>
                         </form>
                     </div>
                     <div className='col-6'>
