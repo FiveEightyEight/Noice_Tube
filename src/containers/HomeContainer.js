@@ -37,50 +37,18 @@ class HomeContainer extends React.Component {
             const currentUser = JSON.parse(localStorage.getItem('currentUser')) || this.state.currentUser;
             const feedVideos = buildFeedVideos(currentUser.feed);
             this.setState({
-                currentUser:currentUser,
+                currentUser: currentUser,
                 feedVideos: feedVideos,
             })
-            populateFeedVideos(this.state.feedVideos, this.state.currentUser.feed, this.state.show)
+            populateFeedVideos(this.state.feedVideos, currentUser.feed, this.state.show)
                 .then( newFeedVideos => {
              this.setState({
                  _isLoaded: true,
                  feedVideos: newFeedVideos,
                 });
-            // return exploreLoadMore(feedVideos.music)
             });
-
-            /*return Promise.all(
-                this.state.currentUser.feed.map((e,i)=>{
-            axios({
-                method: 'get',
-                url: 'https://www.googleapis.com/youtube/v3/search',
-                params: {
-                  part: 'snippet',
-                  maxResults: this.state.show,
-                  videoDefinition: 'high',
-                  type: 'video',
-                  videoEmbeddable: 'true',
-                  // key: 'AIzaSyCb4Jbt3GZj63vr8JTRF8xV67Oae0hBQco',
-                  q:  e,
-                  pageToken: ''
-                }
-              }) 
-              .then((response => {
-                this.setState({
-                    _isLoaded: true,
-                    feedVideos: this.state.feedVideos.concat({returned: true, dataSet: response}),
-                  })
-            }))
-             .catch((error)=>{
-                this.setState({
-               feedVideos: this.state.feedVideos.concat({data: false}),
-            })
-          });        
-        })*/
     }
     
-    componentDidUpdate(prevProps, prevState) {
-    }
 
     handleLoadMore = (e) => {
         const queryName = e.target.attributes.getNamedItem('data-id').value
