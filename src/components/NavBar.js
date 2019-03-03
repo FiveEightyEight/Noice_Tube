@@ -6,7 +6,8 @@ import './NavBar.css'
 const NavBar = props => {
 
     return(
-    <nav>
+        <div className='container-fluid'>
+     <nav >
         <div className='row navContainer'>
         <div className='col'>
         <Link  className='navLink' to='/'>Home</Link>
@@ -25,6 +26,7 @@ const NavBar = props => {
         
         
     </nav>
+    </div>
     )
 }
 

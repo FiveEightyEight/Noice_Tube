@@ -104,7 +104,7 @@ render(){
             </div>
             <hr/>
             <div className='row'>
-                    <div className="col-3">
+                    <div className="col-3" >
                         <h3>FeedBox</h3>
                         <FeedBox feed={this.state.currentUser.feed} />
                     </div>

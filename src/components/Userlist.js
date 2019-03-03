@@ -14,7 +14,7 @@ const Userlist = props => {
                     <ul className="list-group">
                         {userList.map((currUser,i) => {
                             return (
-                            <div  className="user" style= { props.state.currentUser === currUser ? {backgroundColor:'#334FFF'} : {null:null} } key = {i} >
+                            <div  className="user" style= { props.state.currentUser === currUser ? {backgroundColor:'#102542'} : {null:null} } key = {i} >
                                 <p  style={{'display':'inline','marginRight':'75%','color':'black'}}   id={i} onClick={props.handleUserClick} >{currUser.name}</p>
                                 <span  id={i} onClick={props.removeUser} className="badge badge-dark">Remove User</span>
                                 </div>
