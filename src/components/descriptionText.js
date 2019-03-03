@@ -17,7 +17,10 @@ const DescriptionText = props => {
                 </div>
 
                 <a className="btn bg-white text-muted p-0" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onClick={props.handleDescription}>
-                    Load More...
+                <span className='mx-2' style={{ fontSize: '12px' }}>
+                    <strong>SHOW MORE ...</strong>
+                </span>
+                    
                 </a>
             </div>
         </>
