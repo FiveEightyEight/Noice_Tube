@@ -2,6 +2,7 @@
 |   | | | |  |
 |:---:|:---:|:---:|:---:|:---:|
 |**Members**|[Robert Abreu](https://github.com/FiveEightyEight)|[Osita Igwe](https://github.com/oigwe)|[Richard Green](https://github.com/rgreen11)|[Jorge Billini](https://github.com/JorgeBillini)|
+|  **Deployment**: | [S](https://app.netlify.com/sites/vibrant-dijkstra-5a9005/overview) | [I](https://app.netlify.com/sites/vibrant-dijkstra-5a9005/overview)| [T](https://app.netlify.com/sites/vibrant-dijkstra-5a9005/overview)|  [E](https://app.netlify.com/sites/vibrant-dijkstra-5a9005/overview)|
 ___
 
 
