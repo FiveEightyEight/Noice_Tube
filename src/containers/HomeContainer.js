@@ -23,7 +23,7 @@ class HomeContainer extends React.Component {
                   name: 'default',
                   feed: ['music'], //local storage || ['music']
                 },
-                show:  1,
+                show:  4,
                 feedVideos: {},
               }
             }
