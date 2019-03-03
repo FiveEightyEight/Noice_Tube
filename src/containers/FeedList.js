@@ -65,7 +65,7 @@ class FeedEditor extends React.Component {
         }
 
         handleFeedRemove = e => {
-            let id = parseInt(e.target.id);
+            let id = parseInt(e.target.attributes.getNamedItem('data-index').value);
             let newState = this.state;
             let newArr = newState.currentUser.feed.slice(0,id).concat(newState.currentUser.feed.slice(id+1))
             newState.currentUser.feed = newArr
@@ -85,17 +85,20 @@ class FeedEditor extends React.Component {
 render(){
       return( 
       <>
+       <div className ='conatiner'>
       <div className='row'>
       <div className='col col-6'>
       <h1>Create a new Explore Feed </h1>
-      <form onSubmit={this.handleFeedAdd} className='form-inline'>
+      <form onSubmit={this.handleFeedAdd} className='form-inline' >
       <input type='text'className='form-control mr-sm-2'  onChange={this.updateInputValue}></input>
       <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Add Feed</button>
       </form>
       </div>
-       <Feedlist key= {'feed'}feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/>
+      <div className ='col-6'>
+      <div id='containerList col-6'><Feedlist key= {'feed'}feed={this.state.currentUser} handleFeedRemove={this.handleFeedRemove}/></div>
+       </div>
       </div>
-
+      </div>
       </>
       )
   }

@@ -19,7 +19,7 @@ class HomeContainer extends React.Component {
                   name: 'default',
                   feed: ['music', 'feed', 'podcast', ],
                 },
-                show:  4,
+                show:  1,
                 feedVideos: {},
               }
             }

@@ -6,6 +6,7 @@ import Video from './containers/Video'
 import FeedList from './containers/FeedList'
 import HomeContainer from './containers/HomeContainer';
 import NavBar from './components/NavBar'
+import './App.css'
 
 class App extends Component {
 
