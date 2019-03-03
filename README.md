@@ -8,9 +8,9 @@ ___
 
 
 ## **Table of Contents**
-|| |
-|--:|:----|
+
 |1.|[The Ask](https://github.com/FiveEightyEight/TeamTwo_YTube#1-the-ask)
+|--:|:----|
 |2.|[Brainstorm](https://github.com/FiveEightyEight/TeamTwo_YTube#2-brainstorm)
 |3.|[Build](https://github.com/FiveEightyEight/TeamTwo_YTube#3-build--app-structure)
 |4.|[Routes](https://github.com/FiveEightyEight/TeamTwo_YTube#4-routes)
