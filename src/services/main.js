@@ -110,7 +110,7 @@ const exploreLoadMore = (queryObject) => {
 
 const searchLoadMore = (query, dataSet, pageToken) => {
     const newDataSet = [...dataSet];
-    return search(query, 4, pageToken)
+    return search(query, 10, pageToken)
         .then(response => {
             return response.data
         })

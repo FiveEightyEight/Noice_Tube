@@ -38,7 +38,7 @@ class SearchContainer extends React.Component {
             params: this.props.match.params.search_query,
             data: false,
             dataSet: [],
-            show: 1,
+            show: 10,
         }
     }
 
