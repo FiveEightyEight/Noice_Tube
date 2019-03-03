@@ -23,7 +23,7 @@ class HomeContainer extends React.Component {
                   name: 'default',
                   feed: ['music'], //local storage || ['music']
                 },
-                show:  4,
+                show:  1,
                 feedVideos: {},
               }
             }
@@ -71,25 +71,24 @@ class HomeContainer extends React.Component {
             
 render(){
       return <>
-        <div className='container-fluid'>
+        <div className='container-fluid ccontainHeight'>
             <div className='row mx-auto jumbotron' style={{backgroundColor:'#6B717E'}}>
                 <Greeting name = {this.state.currentUser.name}/>
             </div>
             <hr/>
             <div className='row'>
-                    <div className="col-3" >
-                        <h3>FeedBox</h3>
+                    <div className="col-1"></div>
+                    <div className="col-3">
+                        <h3>Your Feeds</h3>
                         <FeedBox feed={this.state.currentUser.feed} />
                     </div>
-                    <div className="col-9">
-                    <div className='container'>
+                    <div className="col-8">
                     { 
                          this.state.currentUser.feed.map((e,i)=>{
                             return  this.state.feedVideos[e] ? <Explorer key={i} results={this.state.feedVideos[e].items} query={this.state.feedVideos[e].query} handleClick={this.handleClick} clickLoad={this.handleLoadMore}/>:<div key={i} className='row'> <Spinner style={{ width: '3rem', height: '3rem' }} /> </div>
 
                         })
                     } 
-                    </div>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@ class SearchContainer extends React.Component {
                 params: this.props.match.params.search_query,
                 data: false, 
                 dataSet: [],
-                show: 1,
+                show: 3,
                 }
             }
 
@@ -46,7 +46,8 @@ class SearchContainer extends React.Component {
            this.props.history.push(`/video/${valueId}`)
            /*window.history.go(`https://www.youtube.com/embed/${id}?autoplay=1&fs=1&origin=http://localhost:3000`);*/
             }
-        
+    
+
         componentDidMount() {
             search(dealWithSpaces(query),this.state.show)
             .then((data)=>{
@@ -94,15 +95,17 @@ class SearchContainer extends React.Component {
 render(){
      console.log(this.state)
       return <>
-        <div className='container-fluid'>
+        <div className='container-fluid ccontainHeight'>
         <hr></hr>
-            <div className='row'></div>
+            <div className='row'>
+            </div>
             <div className='row'>
                     <div className="col-2">
+                    <p>Search Results for {query.toUpperCase()}</p>
                     </div>
                     <div className="col-8">
                         {
-                            this.state.data === false ? <p>No Results Found</p> : <SearchResults resultsReturned={this.state.dataSet} click={this.handleClick} />
+                            this.state.data === false ? <p>No Results Found</p> : <SearchResults resultsReturned={this.state.dataSet} click={this.handleClick} clickLoad={this.handleLoadMore}/>
                         } 
                     </div>
                     <div className="col-2"></div>

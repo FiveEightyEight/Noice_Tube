@@ -8,3 +8,7 @@
 .close{ 
     justify-content: right;
 }
+
+p {
+    font-size: 17px;
+}

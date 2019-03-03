@@ -22,6 +22,7 @@
     height: 40px;
     background-color: transparent;
     border: 1px solid yellow;
+    border-radius: 5px;
     color: white;
 
 }

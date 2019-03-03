@@ -5,16 +5,16 @@
 }
 
 
-h3, span, p {
+h3, span,  #vidCard {
     font-family: 'Roboto', sans-serif;
     text-align: left;
 }
 
-h3, img,  p:hover {
+h3, img,   #vidCard:hover {
     cursor: pointer;
 }
 
-span, p{
+span,  #vidCard{
     color: #606060;
 }
 
@@ -27,7 +27,7 @@ h3 {
     padding-bottom: 0;
 }
 
-p{
+#vidCard{
     margin-top: 10px;
     font-size: 14px;
 }

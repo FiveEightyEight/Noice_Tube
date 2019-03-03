@@ -6,16 +6,47 @@
 }
 
 #list{
-    box-shadow: 5px 5px #888888;
+    box-shadow: 5px 5px black;
+    border: 1px solid black;
     margin-bottom: 20px;
     border-radius: 5px;
     padding: 5px;
     font-weight: bold;
     font-family: 'Roboto';
+    background-color: white;
 }
 
+#listStatic{
+    box-shadow: 3px 3px black;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-top: 10px;
+    padding: 5px;
+    font-weight: bold;
+    font-family: 'Roboto';
+    min-height: 280px;
+    max-width: 230px;
+    max-height: 280px;
+    background-color: white;
+}
+
+#listH{
+    box-shadow: 3px 3px black;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    margin-top: 10px;
+    padding: 5px;
+    font-weight: bold;
+    font-family: 'Roboto';
+    background-color: white;
+}
 #containerList{
 
+}
+
+#listH:hover{
+    background-color:yellow;
 }
 
 #removelink{
@@ -33,4 +64,8 @@
 body {
     background-color: #FCFCFC;
 
+}
+
+.ccontainHeight{
+    min-height: 700px;
 }
