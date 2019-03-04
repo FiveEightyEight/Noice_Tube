@@ -33,9 +33,19 @@ const multiSearch = (array, count = 10) => {
 };
 
 const getPromiseAllData = (arr) => {
+    console.log('promiseALL response', arr)
     const temp = [];
     for (let i = 0; i < arr.length; i++) {
-        temp.push({ query: arr[i].config.params.q, data: arr[i].data })
+        const result = arr[i];
+        const query = result.config.params.q;
+        const status = checkStatus(result.status);
+        if (status) {
+            temp.push({ query: query, data: arr[i].data, status: status,})
+        }
+        else {
+            temp.push({ query: query, status: status,})
+            // switch API Key
+        }
     }
     return temp;
 };
@@ -250,7 +260,15 @@ const getChannelInfo = (id) => {
     return callAPI(channelUrl, channel);
 }
 
+// --- Status Check ----
+const checkStatus = (status) => {
+    if(status > 204 && status < 200) {
+        return false;
+    }
+    return true;
+}
 
+//  ---- ---- ---- ---- ---- ----
 const capitalize = (str) => {
     if (typeof str !== 'string') return str;
     return str[0].toUpperCase().concat(str.slice(1));
