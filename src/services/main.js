@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 import axios from 'axios';
-import API_KEY from './API_KEY';
+import KEY_MASTER from './API_KEY';
 import React from 'react';
-
+const API_KEY = KEY_MASTER[0];
 
 const search = (query, count = 10, page = '') => {
     return axios({
@@ -109,6 +109,10 @@ const exploreLoadMore = (queryObject) => {
 };
 
 const searchLoadMore = (query, dataSet, pageToken) => {
+    return searchLoad(query, dataSet, pageToken);
+};
+
+const searchLoad = (query, dataSet, pageToken) => {
     const newDataSet = [...dataSet];
     return search(query, 10, pageToken)
         .then(response => {
@@ -332,6 +336,7 @@ export {
     ratingFormat,
     exploreFeed,
     exploreLoadMore,
+    searchLoad,
     searchLoadMore,
     parseVideo
 }
