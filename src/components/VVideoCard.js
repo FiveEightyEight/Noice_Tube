@@ -2,7 +2,6 @@ import React from 'react';
 import './VVideoCard.css';
 
 const dealWithQuots = (title) => {
-    console.log(title)
     if(title.includes('&quot;')){
         let find = '&quot;';
         let re = new RegExp(find, 'g');

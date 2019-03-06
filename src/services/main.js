@@ -75,10 +75,13 @@ const getPromiseAllDataDep = (arr) => {// depricated
 };
 
 const getPromiseAllData = (arr, keySwapped = false) => {
-    if (arr.length === 0) return;
+    console.log('in PromiseAllData Recursive')
+    if (arr.length === 0) return [];
     const result = arr[0];
     const query = result.config.params.q;
     const status = checkStatus(result.status);
+    console.log('result: ', result)
+    console.log('status: ', status)
     if (status) {
       return [{
         query: query,
@@ -162,12 +165,14 @@ const buildFeedVideos = (feed = ['music']) => {
 
 const populateFeedVideos = (feedVideos, feed = ['music'], count = 10) => {
     const newFeedVideos = { ...feedVideos }
+    console.log('current API key: ', API_KEY)
     return exploreFeed(feed, count)
         .then(data => {
             for (let i = 0; i < data.length; i++) {
                 const current = data[i];
                 newFeedVideos[current.query] = current;
             }
+            console.log('Exit API key: ', API_KEY)
             return newFeedVideos;
         })
         .catch(err => {
@@ -252,6 +257,7 @@ const exploreFeed = (arr, count = 10) => {
             return getPromiseAllData(resArr);
         })
         .then(data => {
+            console.log('data post getPromiseAllData: ', data)
             return buildSearchResult(data)
         })
         .catch(err => {
