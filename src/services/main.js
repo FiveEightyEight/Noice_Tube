@@ -32,7 +32,7 @@ const multiSearch = (array, count = 10) => {
     return Promise.all(promiseAll)
 };
 
-const getPromiseAllData = (arr) => {
+const getPromiseAllDataDep = (arr) => {// depricated
     console.log('promiseALL response', arr)
     const temp = [];
     let keySwapped = false;
@@ -45,33 +45,88 @@ const getPromiseAllData = (arr) => {
         }
         else {
             // switch API Key
-            if(!keySwapped) {
-                console.log('ran out of calls, trying a new key')
-                swapKey()
-                .then( _=>{
-                    keySwapped = true;
-                })
-                .catch( _=> {
-                    console.log('no keys left')
-                    temp.push({ query: query, status: status,})
-                    return temp;
-                });
-            };
-            search(query, 1)
-            .then( response => {
-                const qry = response.config.params.q;
-                const stat = checkStatus(result.status);
-                if (stat) {
-                    temp.push({ query: qry, data: response.data, status: stat})
-                } else {
-                    console.log('hit the limits of this function, needs refactor')
-                    return temp;
-                }
-            })
+            continue;
+            // if(!keySwapped) {
+            //     console.log('ran out of calls, trying a new key')
+            //     swapKey()
+            //     .then( _=>{
+            //         keySwapped = true;
+            //     })
+            //     .catch( _=> {
+            //         console.log('no keys left')
+            //         temp.push({ query: query, status: status,})
+            //         return temp;
+            //     });
+            // };
+            // search(query, 1)
+            // .then( response => {
+            //     const qry = response.config.params.q;
+            //     const stat = checkStatus(result.status);
+            //     if (stat) {
+            //         temp.push({ query: qry, data: response.data, status: stat})
+            //     } else {
+            //         console.log('hit the limits of this function, needs refactor')
+            //         return temp;
+            //     }
+            // })
         }
     }
     return temp;
 };
+
+const getPromiseAllData = (arr, keySwapped = false) => {
+    if (arr.length === 0) return;
+    const result = arr[0];
+    const query = result.config.params.q;
+    const status = checkStatus(result.status);
+    if (status) {
+      return [{
+        query: query,
+        data: result.data,
+        status: status,
+      }].concat(getPromiseAllData(arr.slice(1)))
+    } else {
+      if (!keySwapped) {
+        console.log('ran out of calls, trying a new key')
+        return swapKey()
+          .then(_ => {
+            return search(query, 1)
+              .then(response => {
+                console.log('call worked')
+                const qry = response.config.params.q;
+                const stat = checkStatus(response.status);
+                return [{
+                  query: qry,
+                  data: response.data,
+                  status: stat,
+                }].concat(getPromiseAllData(arr.slice(1), true))
+              })
+          })
+          .catch(_ => {
+            console.log('no keys left')
+            return [{
+              query: query,
+              status: status,
+            }].concat(getPromiseAllData([]));
+          });
+      };
+      return search(query, 1)
+        .then(response => {
+          console.log('normalizing')
+          const qry = response.config.params.q;
+          const stat = checkStatus(response.status);
+          return [{
+            query: qry,
+            data: response.data,
+            status: stat,
+          }].concat(getPromiseAllData(arr.slice(1)))
+        })
+        .catch(_ => {
+          console.log('hit the limits of this function, needs refactor')
+          return [];
+        });
+    };
+  };
 
 const buildSearchResult = (arr, simple = true) => {
     const temp = [];
