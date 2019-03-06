@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import axios from 'axios';
 import KEY_MASTER from './API_KEY';
 import React from 'react';
-const API_KEY = KEY_MASTER[0];
+let API_KEY = KEY_MASTER[0];
 
 const search = (query, count = 10, page = '') => {
     return axios({
@@ -35,6 +35,7 @@ const multiSearch = (array, count = 10) => {
 const getPromiseAllData = (arr) => {
     console.log('promiseALL response', arr)
     const temp = [];
+    let keySwapped = false;
     for (let i = 0; i < arr.length; i++) {
         const result = arr[i];
         const query = result.config.params.q;
@@ -43,8 +44,10 @@ const getPromiseAllData = (arr) => {
             temp.push({ query: query, data: arr[i].data, status: status,})
         }
         else {
+            console.log('ran out of calls, trying a new key')
             temp.push({ query: query, status: status,})
             // switch API Key
+            if(!keySwapped) swapKey();
         }
     }
     return temp;
@@ -264,9 +267,21 @@ const getChannelInfo = (id) => {
 const checkStatus = (status) => {
     if(status > 204 && status < 200) {
         return false;
-    }
+    };
     return true;
-}
+};
+
+const swapKey = () => {
+    return new Promise( (resolve, reject) => {
+        const index = KEY_MASTER.indexOf(API_KEY);
+        if( index === KEY_MASTER.length - 1 ){
+            reject()
+        } else {
+            API_KEY = KEY_MASTER[index + 1]
+            resolve()
+        }
+    });
+};
 
 //  ---- ---- ---- ---- ---- ----
 const capitalize = (str) => {
