@@ -44,10 +44,30 @@ const getPromiseAllData = (arr) => {
             temp.push({ query: query, data: arr[i].data, status: status,})
         }
         else {
-            console.log('ran out of calls, trying a new key')
-            temp.push({ query: query, status: status,})
             // switch API Key
-            if(!keySwapped) swapKey();
+            if(!keySwapped) {
+                console.log('ran out of calls, trying a new key')
+                swapKey()
+                .then( _=>{
+                    keySwapped = true;
+                })
+                .catch( _=> {
+                    console.log('no keys left')
+                    temp.push({ query: query, status: status,})
+                    return temp;
+                });
+            };
+            search(query, 1)
+            .then( response => {
+                const qry = response.config.params.q;
+                const stat = checkStatus(result.status);
+                if (stat) {
+                    temp.push({ query: qry, data: response.data, status: stat})
+                } else {
+                    console.log('hit the limits of this function, needs refactor')
+                    return temp;
+                }
+            })
         }
     }
     return temp;
